@@ -1,0 +1,39 @@
+type: object
+properties:
+  janus:
+    const: message
+    $ref: "./janus-command.yaml"
+  session_id:
+    $ref: "./janus-session-id.yaml"
+  handle_id:
+    $ref: "./janus-handle-id.yaml"
+  transaction:
+    $ref: "./janus-transaction.yaml"
+  body:
+    type: object
+    properties:
+      control:
+        const: chatSendMessage
+        $ref: 'control-command.yaml'
+      user:
+        $ref: 'call-user.yaml'
+      room:
+        $ref: 'room-number.yaml'
+      uid:
+        $ref: 'control-uid.yaml'
+      text:
+        description: Message text
+        type: string
+        maxLength: 500
+    required:
+      - control
+      - user
+      - uid
+      - room
+      - text
+required:
+  - janus
+  - session_id
+  - handle_id
+  - transaction
+  - body

@@ -1,0 +1,13 @@
+type: object
+properties:
+  control:
+    const: incomingCall
+    $ref: './control-command.yaml'
+  uid:
+    $ref: './control-uid.yaml'
+  from:
+    $ref: './user.yaml'
+required:
+  - control
+  - uid
+  - from
