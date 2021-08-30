@@ -1,9 +1,17 @@
 #!/usr/bin/awk -f
 
-# BEGIN{
-#   FIELDWIDTHS="1 1 1"
-# }
-
-{
-  print $1,$2,$3
-}
+for file in $(find . -name "*.yaml");do
+awk '
+  {
+      for(i=1;i<=NF;i++)
+        {
+          j=1;
+          j++;
+          if($i=="control:" && $j=="const:")
+            {
+              print $j
+            }
+        }
+  }'
+  $file;
+  done
