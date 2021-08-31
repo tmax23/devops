@@ -1,0 +1,33 @@
+---
+ - name: Playbook for learning variables
+   hosts: all
+   become: yes
+
+   vars:
+     msg1: "Privet"
+     msg2: "Poka"
+
+   tasks:
+     - debug:
+         var: msg1
+
+     - debug:
+         msg: "Uasyaaaaaaa {{ msg1 }} "
+
+     - set_fact: full_message="{{ msg1 }} {{ msg2 }}"
+
+     - debug:
+         var: full_message
+
+     - name: Print Gathering Facts
+       debug:
+         msg:
+           - "{{ ansible_all_ipv4_addresses }}"
+           - "{{ ansible_lsb.description }}"
+
+     - shell:
+         cmd: uptime; echo $USER
+       register: results
+
+     - debug:
+         var: results.stdout_lines

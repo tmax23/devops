@@ -1,0 +1,10 @@
+---
+ - name: Test playbook "When"
+   hosts: all
+   become: yes
+
+   tasks:
+    - name: Print msg when IP is ...
+      debug:
+        msg: This is {{ ansible_lsb.description }}
+      when: ansible_bios_version == "4.11.amazon"

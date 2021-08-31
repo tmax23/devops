@@ -3,6 +3,10 @@
    hosts: all
    become: yes
 
+   vars:
+     ssrc: ./index.html
+     ddest: /var/www/html/index.html
+
    tasks:
    - name: Install Apache
      apt:
@@ -10,8 +14,21 @@
        state: latest
 #       update_cache: yes
 
+   - name: Copy HTML file
+     copy:
+       src: "{{ ssrc }}"
+       dest: "{{ ddest }}"
+       mode: '0555'
+     notify: Restart Apache
+
    - name: Start Apache and autorun
      ansible.builtin.service:
        name: apache2
        state: started
        enabled: yes
+
+   handlers:
+     - name: Restart Apache
+       ansible.builtin.service:
+         name: apache2
+         state: restarted
