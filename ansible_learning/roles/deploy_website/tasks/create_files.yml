@@ -7,8 +7,7 @@
     notify:
       - Restart Apache Debian
       - Restart Apache RedHat
-    #delegate_to: gcp-server-1
-
+    
   - name: Copy web site files
     copy:
       src: "{{ item }}"
