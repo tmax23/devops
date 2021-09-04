@@ -1,0 +1,20 @@
+---
+  - name: Generating html file
+    template:
+      src: "index.j2"
+      dest: "{{ ddest }}/index.html"
+      mode: '0555'
+    notify:
+      - Restart Apache Debian
+      - Restart Apache RedHat
+    #delegate_to: gcp-server-1
+
+  - name: Copy web site files
+    copy:
+      src: "{{ item }}"
+      dest: "{{ ddest }}"
+      mode: '0555'
+    with_fileglob: "*.jpg"
+    notify:
+      - Restart Apache Debian
+      - Restart Apache RedHat

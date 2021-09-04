@@ -1,0 +1,7 @@
+- name: Deploy WEB site
+  hosts: "{{ HOST }}"
+  become: yes
+
+  roles:
+    - role: deploy_website
+      when: ansible_system == "Linux"

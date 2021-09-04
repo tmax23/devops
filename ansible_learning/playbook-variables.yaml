@@ -22,7 +22,7 @@
      - name: Print Gathering Facts
        debug:
          msg:
-           - "{{ ansible_all_ipv4_addresses }}"
+           - "{{ ansible_hostname }}"
            - "{{ ansible_lsb.description }}"
 
      - shell:

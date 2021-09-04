@@ -1,0 +1,35 @@
+---
+# tasks file for deploy_website
+
+ #====== for RedHat =====================
+- block:
+  - name: Install Apache for RedHat
+    dnf:
+      name: httpd
+      state: latest
+
+  - name: Start Apache and autorun for RedHat
+    ansible.builtin.service:
+      name: httpd
+      state: started
+      enabled: yes
+  when: ansible_os_family == "RedHat"
+#=======================================
+
+#====== for Debian =====================
+- block:
+  - name: Install Apache for Debian
+    apt:
+      name: apache2
+      state: latest
+      update_cache: yes
+
+  - name: Start Apache and autorun for Debian
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+  when: ansible_os_family == "Debian"
+#=======================================
+
+- include: create_files.yml

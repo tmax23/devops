@@ -1,0 +1,17 @@
+---
+  - name: Understanding "delegate_to"
+    hosts: aws
+    become: yes
+
+    tasks:
+
+      - name: "Shell commands: hostname"
+        shell:
+          cmd: hostname
+        register: result
+        delegate_to: localhost
+
+      - name: "Print result"
+        debug:
+          var: result.stdout_lines
+        delegate_to: localhost

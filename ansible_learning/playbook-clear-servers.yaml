@@ -1,0 +1,25 @@
+---
+- name: Clear all servers
+  hosts: "{{ HOST }}"
+  become: yes
+
+  vars:
+    dest_folder: /var/www/html
+
+  tasks:
+    - name: Remove Apache from RedHat
+      dnf:
+        name: httpd
+        state: absent
+      when: ansible_os_family == "RedHat"
+
+    - name: Remove Apache from Debian/Ubuntu
+      apt:
+        name: apache2
+        state: absent
+      when: ansible_os_family == "Debian"
+
+    - name: Remove files by web site
+      file:
+        path: "{{ dest_folder }}"
+        state: absent
