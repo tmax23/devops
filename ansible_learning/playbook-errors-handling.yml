@@ -1,0 +1,20 @@
+ - name: Errors handling
+   hosts: all
+   any_errors_fatal: true
+   become: yes
+
+   tasks:
+     - name: Install...
+       apt:
+         name: httpddd
+         state: latest
+       ignore_errors: yes
+
+     - shell: ls -lh /var/www/html/
+       register: results
+       ignore_errors: yes
+
+     - debug:
+         var: results.stdout
+       ignore_errors: yes
+       # failed_when: "'index.html' not in results.stdout"

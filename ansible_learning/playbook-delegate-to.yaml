@@ -1,17 +1,26 @@
 ---
   - name: Understanding "delegate_to"
-    hosts: aws
+    hosts: aws-server-1
     become: yes
 
     tasks:
 
-      - name: "Shell commands: hostname"
-        shell:
-          cmd: hostname
-        register: result
-        delegate_to: localhost
+      # - name: "Reboot servers"
+      #   shell: "sleep 5 && reboot now"
+      #   async: 1
+      #   poll: 0
+      #
+      # - name: "Waiting for loading OS"
+      #   become: no
+      #   wait_for_connection:
+      #
 
-      - name: "Print result"
+      - name: "Uptime..."
+        shell: hostname
+        register: results
+        delegate_to: gcp-server-1
+        
+
+      - name: "Print uptime"
         debug:
-          var: result.stdout_lines
-        delegate_to: localhost
+          var: results.stdout_lines
