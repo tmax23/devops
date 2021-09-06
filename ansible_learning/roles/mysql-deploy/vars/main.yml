@@ -1,0 +1,13 @@
+---
+# vars file for mysql-deploy
+MYSQL_VER_DEBIAN:
+MYSQL_VER_UBUNTU: 8.0.26-0ubuntu0.20.04.2
+MYSQL_VER_REDHAT:
+
+MYSQL_LIST_DEBIAN: "deb http://repo.mysql.com/apt/debian/ buster mysql-8.0"
+MYSQL_LIST_UBUNTU: "deb http://repo.mysql.com/apt/ubuntu/ bionic mysql-8.0"
+MYSQL_LIST_REDHAT:
+
+DEST_SOURCES_LIST_UBUNTU: /etc/apt/sources.list.d
+DEST_SOURCES_LIST_DEBIAN: /etc/apt/sources.list.d
+DEST_SOURCES_LIST_REDHAT:
