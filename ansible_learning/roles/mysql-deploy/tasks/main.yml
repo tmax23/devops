@@ -1,37 +1,5 @@
 ---
 # tasks file for mysql-deploy
 
-
-- name: Add an apt key by id from a keyserver
-  ansible.builtin.apt_key:
-    keyserver: pgp.mit.edu
-    id: 5072E1F5
-
-
-#====== for Ubuntu =====================
-- block:
-  - name: Generating mysql.list for Ubuntu
-    template:
-      src: "ubuntu-mysql.list.j2"
-      dest: "{{ DEST_SOURCES_LIST_UBUNTU }}/mysql.list"
-      mode: '0644'
-
-  - name: Install MySQL for Ubuntu
-    apt:
-      name:
-      state:
-      update_cache: yes
-
-
- - name: Install Apache for RedHat
-   dnf:
-     name: httpd
-     state: latest
-
- - name: Start Apache and autorun for RedHat
-   ansible.builtin.service:
-     name: httpd
-     state: started
-     enabled: yes
- when: ansible_os_family == "RedHat"
-#=======================================
+- include: for-ubuntu-debian.yml
+- include: for-redhat.yml

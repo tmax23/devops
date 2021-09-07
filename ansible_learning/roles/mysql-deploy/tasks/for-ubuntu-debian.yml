@@ -1,0 +1,40 @@
+---
+- name: Add an apt key by id from a keyserver for Ubuntu/Debian
+  ansible.builtin.apt_key:
+    keyserver: pgp.mit.edu
+    id: 5072E1F5
+  when: ansible_os_family == "Debian"
+
+- name: Generating mysql.list for Ubuntu
+  template:
+    src: "ubuntu-mysql.list.j2"
+    dest: "{{ DEST_SOURCES_LIST_UBUNTU }}/mysql.list"
+    mode: '0644'
+  when: ansible_distribution == "Ubuntu"
+
+- name: Generating mysql.list for Debian
+  template:
+    src: "debian-mysql.list.j2"
+    dest: "{{ DEST_SOURCES_LIST_DEBIAN }}/mysql.list"
+    mode: '0644'
+  when: ansible_distribution == "Debian"
+
+- name: Pre-configure mysql-community-server for Ubuntu/Debian
+  include_tasks: pre-configure-mysql-community-server.yml
+  when: ansible_os_family == "Debian"
+
+- name: Install MySQL for Ubuntu/Debian
+  apt:
+    name: mysql-server
+    state: latest
+    update_cache: yes
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  when: ansible_os_family == "Debian"
+
+- name: Start MySql and autorun for Debian/Ubuntu
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: yes
+  when: ansible_os_family == "Debian"
