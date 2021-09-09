@@ -1,0 +1,22 @@
+- name: Test pymysql
+  hosts: aws-redhat-3
+  become: yes
+  any_errors_fatal: true
+
+  vars:
+    MYSQL_PASSWORD: passw0rd
+
+  tasks:
+    - name: grep 'temporary password' for RedHat
+      shell:
+        cmd: grep 'temporary password' /var/log/mysqld.log | cut -d " " -f 13
+      register: password
+
+    - name: Set MySQL root Password for RedHat
+      mysql_user:
+        host: localhost
+        login_user: root
+        login_password: "{{ password.stdout }}"
+        name: root
+        password: "{{ MYSQL_PASSWORD }}"
+        state: present

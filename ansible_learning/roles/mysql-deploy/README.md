@@ -28,4 +28,4 @@ https://dev.mysql.com/get/mysql80-community-release-el6-3.noarch.rpm
 
 2. sudo yum install platform-and-version-specific-package-name.rpm
 
-2021-09-07T16:25:19.891818Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: Af9eFX+,iXmT
+grep 'temporary password' /var/log/mysqld.log | cut -d " " -f 13
