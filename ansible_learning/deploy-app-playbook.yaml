@@ -1,0 +1,9 @@
+---
+- name: Deploy test APP
+  hosts: "{{ HOSTS }}"
+  become: yes
+  any_errors_fatal: true
+
+  roles:
+    - name: Deploy MySQL server
+      role: mysql-deploy

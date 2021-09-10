@@ -1,8 +1,0 @@
----
-- name: Deploy MySql server
-  hosts: "{{ HOSTS }}"
-  become: yes
-  any_errors_fatal: true
-
-  roles:
-    - role: mysql-deploy
