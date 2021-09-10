@@ -1,0 +1,5 @@
+---
+# tasks file for remove-app
+
+- include: remove-mysql.yml
+- include: remove-nginx.yml

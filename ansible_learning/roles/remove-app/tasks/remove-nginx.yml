@@ -1,0 +1,43 @@
+---
+#====== Remove NGINX from RedHat =====================
+- name: Begin block - Removing  NGINX from RedHat
+  block:
+
+  - name: yum module enable nginx for RedHat
+    shell:
+      cmd: yum -y module enable nginx
+
+  - name: Remove NGINX for RedHat
+    yum:
+      name: nginx
+      state: absent
+
+  - name: Remove nginx.repo for RedHat
+    ansible.builtin.file:
+      path: "{{ DEST_SOURCES_LIST_REDHAT }}/nginx.repo"
+      state: absent
+
+  when: ansible_os_family == "RedHat"
+#======================================================
+
+#====== Remove NGINX from Debian/Ubuntu =====================
+- name: Begin block - Removing  NGINX from Debian/Ubuntu
+  block:
+
+  - name: Remove NGINX for Debian/Ubuntu
+    apt:
+      name: nginx
+      state: absent
+
+  - name: Remove nginx.list for Debian/Ubuntu
+    ansible.builtin.file:
+      dest: "{{ DEST_SOURCES_LIST_UBUNTU_DEBIAN }}/nginx.list"
+      state: absent
+
+  - name: Remove an apt key by id from a keyserver for Ubuntu/Debian
+    ansible.builtin.apt_key:
+        id: ABF5BD827BD9BF62
+        state: absent
+
+  when: ansible_os_family == "Debian"
+#=======================================

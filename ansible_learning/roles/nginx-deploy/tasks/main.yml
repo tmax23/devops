@@ -1,0 +1,58 @@
+---
+# tasks file for nginx-deploy
+- name: Generating nginx.repo for RedHat
+  template:
+    src: "nginx.repo.j2"
+    dest: "{{ DEST_SOURCES_LIST_REDHAT }}/nginx.repo"
+    mode: '0644'
+  when: ansible_os_family == "RedHat"
+
+- name: Generating nginx.list for Debian/Ubuntu
+  template:
+    src: "nginx.list.j2"
+    dest: "{{ DEST_SOURCES_LIST_DEBIAN_UBUNTU }}/nginx.list"
+    mode: '0644'
+  when: ansible_os_family == "Debian"
+
+# Replace $key with the corresponding $key from your GPG error.
+- name: Add an apt key by id from a keyserver for Ubuntu/Debian
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: ABF5BD827BD9BF62
+  when: ansible_os_family == "Debian"
+
+#======Install NGINX for RedHat =====================
+- block:
+  - name: yum module disable nginx for RedHat
+    shell:
+      cmd: yum -y module disable nginx
+
+  - name: Install NGINX for RedHat
+    yum:
+      name: nginx
+      state: latest
+      update_cache: yes
+
+  - name: Start NGINX and autorun for RedHat
+    ansible.builtin.service:
+      name: nginx
+      state: started
+      enabled: yes
+  when: ansible_os_family == "RedHat"
+#=======================================
+
+#====== Install NGINX for Debian/Ubuntu =====================
+- block:
+  - name: Install NGINX for Debian/Ubuntu
+    apt:
+      name: nginx
+      state: latest
+      update_cache: yes
+
+  - name: Start NGINX and autorun for Debian/Ubuntu
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+  when: ansible_os_family == "Debian"
+#=======================================

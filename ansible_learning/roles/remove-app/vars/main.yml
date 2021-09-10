@@ -1,0 +1,4 @@
+---
+# vars file for remove-app
+DEST_SOURCES_LIST_UBUNTU_DEBIAN: /etc/apt/sources.list.d
+DEST_SOURCES_LIST_REDHAT       : /etc/yum.repos.d

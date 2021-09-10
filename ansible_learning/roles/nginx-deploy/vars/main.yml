@@ -1,0 +1,4 @@
+---
+# vars file for nginx-deploy
+DEST_SOURCES_LIST_REDHAT       : /etc/yum.repos.d
+DEST_SOURCES_LIST_DEBIAN_UBUNTU: /etc/apt/sources.list.d
