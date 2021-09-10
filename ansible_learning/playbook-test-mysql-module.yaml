@@ -1,10 +1,10 @@
-- name: Test pymysql
+- name: Change password MySQL from cli
   hosts: aws-redhat-3
   become: yes
   any_errors_fatal: true
 
   vars:
-    MYSQL_PASSWORD: passw0rd
+    MYSQL_PASSWORD: arlTaa!s12Ra
 
   tasks:
     - name: grep 'temporary password' for RedHat
@@ -13,10 +13,12 @@
       register: password
 
     - name: Set MySQL root Password for RedHat
-      mysql_user:
-        host: localhost
-        login_user: root
-        login_password: "{{ password.stdout }}"
-        name: root
-        password: "{{ MYSQL_PASSWORD }}"
-        state: present
+      become: no
+      shell:
+        cmd: set +o histexpand
+      when: ansible_os_family == "RedHat"
+
+    - name: Set MySQL root Password for RedHat
+      shell:
+        cmd: mysql -u root -p"{{ password.stdout }}" --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ MYSQL_PASSWORD }}';"
+      when: ansible_os_family == "RedHat"

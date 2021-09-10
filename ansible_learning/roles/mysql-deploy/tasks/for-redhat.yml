@@ -57,23 +57,13 @@
   register: password
   when: ansible_os_family == "RedHat"
 
-- name: Install python3 for RedHat
-  yum:
-    name: python3
-    state: latest
-  when: ansible_os_family == "RedHat"
-
-- name: Install PyMySQL for RedHat
+- name: The histexpand shell option is OFF for RedHat
+  become: no
   shell:
-    cmd: python3 -m pip install PyMySQL
+    cmd: set +o histexpand
   when: ansible_os_family == "RedHat"
 
 - name: Set MySQL root Password for RedHat
-  mysql_user:
-    host: localhost
-    login_user: root
-    login_password: "{{ password.stdout }}"
-    name: root
-    password: "{{ MYSQL_PASSWORD }}"
-    state: present
+  shell:
+    cmd: mysql -u root -p"{{ password.stdout }}" --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ MYSQL_PASSWORD }}';"
   when: ansible_os_family == "RedHat"

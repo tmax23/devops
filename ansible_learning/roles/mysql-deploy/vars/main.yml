@@ -1,6 +1,6 @@
 ---
 # vars file for mysql-deploy
-MYSQL_PASSWORD: passw0rd
+MYSQL_PASSWORD: arlTaa!s12Ra
 
 MYSQL_LIST_DEBIAN: "deb http://repo.mysql.com/apt/debian/ buster mysql-8.0"
 MYSQL_LIST_UBUNTU: "deb http://repo.mysql.com/apt/ubuntu/ bionic mysql-8.0"
