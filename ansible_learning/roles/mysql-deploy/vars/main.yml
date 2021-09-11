@@ -1,9 +1,5 @@
 ---
 # vars file for mysql-deploy
-MYSQL_PASSWORD: arlTaa!s12Ra
+MYSQL_PASSWORD: arlTaa+s12Ra
 
-MYSQL_YUM_6_REPO: "https://dev.mysql.com/get/mysql80-community-release-el6-3.noarch.rpm"
-MYSQL_YUM_7_REPO: "https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm"
-MYSQL_YUM_8_REPO: "https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm"
-
-DEST_SOURCES_LIST_UBUNTU_DEBIAN: /etc/apt/sources.list.d
+DEST_SOURCES_LIST_DEBIAN: /etc/apt/sources.list.d

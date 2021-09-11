@@ -1,66 +1,46 @@
 ---
-#======= Begin RedHat ======================
-- name: Begin block - Removing  MySQL for RedHat
-  block:
-
-  - name: Remove MySQL for RedHat
-    yum:
-      name: mysql-community-server
-      state: absent
-
-  - name: Remove MySQL Yum Repository for RedHat
-    shell:
-      cmd: yum -y remove mysql80-community-release
-      
-  - name: The histexpand shell option is ON for RedHat
-    become: no
-    shell:
-      cmd: set -o histexpand
-
-  - name: yum module enable mysql for RedHat
-    shell:
-      cmd: yum -y module enable mysql
-
-  - name: Remove downloaded MySQL Yum Repository for RedHat
-    ansible.builtin.file:
-      path: /home/mysql80-community-release.rpm
-      state: absent
-
+- name: RedHat - remove MySQL
+  yum:
+    name: mysql-server
+    state: absent
   when: ansible_os_family == "RedHat"
-#======= End RedHat ======================
 
-#======= Begin Ubuntu/Debian ======================
-- name: Begin block - Removing  MySQL for Debian/Ubuntu
+#======= Begin Debian ======================
+- name: Debian block - removing gnupg and apt_key
   block:
-  - name: Remove gnupg for Ubuntu/Debian
+
+  - name: Debian - remove gnupg
     apt:
       name: gnupg
+      purge: yes
       state: absent
 
-  - name: Remove an apt key by id from a keyserver for Ubuntu/Debian
+  - name: Debian - remove an apt_key
     ansible.builtin.apt_key:
       id: 5072E1F5
       state: absent
 
-  - name: Remove MySQL for Ubuntu/Debian
-    apt:
-      name: mysql-server
-      state: absent
-
-  - name: Remove mysql.list for Ubuntu/Debian
+  - name: Debian - remove mysql.list
     ansible.builtin.file:
-      path: "{{ DEST_SOURCES_LIST_UBUNTU_DEBIAN }}/mysql.list"
+      path: "{{ DEST_SOURCES_LIST_DEBIAN }}/mysql.list"
       state: absent
 
-  when: ansible_os_family == "Debian"
-#======= End Ubuntu/Debian ======================
+  when: ansible_distribution == "Debian"
+#======= End Debian ========================
 
-- name: Remove /var/lib/mysql/
+- name: Ubuntu/Debian - remove MySQL
+  apt:
+    name: mysql-server
+    purge: yes
+    state: absent
+  when: ansible_os_family == "Debian"
+
+- name: All - remove /var/lib/mysql/
   ansible.builtin.file:
     path: /var/lib/mysql/
     state: absent
 
-- name: Remove /var/log/mysqld.log
+- name: All - remove /var/log/mysqld.log
   ansible.builtin.file:
     path: /var/log/mysqld.log
     state: absent

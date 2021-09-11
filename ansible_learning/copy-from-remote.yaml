@@ -1,0 +1,31 @@
+- name: Copy configs from hosts
+  hosts: all
+  become: yes
+  any_errors_fatal: true
+
+  vars:
+    LOCAL_PATH: /home/maxim/devops/ansible_learning/configs-from-hosts/
+
+  tasks:
+
+  - name: All - copy nginx folder
+    ansible.builtin.fetch:
+      src: /etc/nginx
+      dest: "{{ LOCAL_PATH }}"
+
+  - name: Ubuntu/Debian - copy mysql folder
+    ansible.builtin.fetch:
+      src: /etc/mysql
+      dest: "{{ LOCAL_PATH }}"
+    when: ansible_os_family == "Debian"
+
+  - name: Ubuntu/Debian - copy mysql folder
+    ansible.builtin.fetch:
+      src: /etc/my.cnf.d/
+      dest: "{{ LOCAL_PATH }}"
+    when: ansible_os_family == "RedHat"
+
+/etc/my.cnf.d/
+
+when: ansible_os_family == "RedHat"
+  when: ansible_os_family == "Debian"

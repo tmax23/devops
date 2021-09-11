@@ -1,0 +1,56 @@
+---
+# tasks file for deploy-php-page
+
+#========= Begin block for generating config and PHP page for Ubuntu/Debian
+- block:
+
+  - name: Ubuntu/Debian - search socket php-fpm
+    shell:
+      cmd: ls /var/run/php/php7*.sock | cut -d "/" -f 5
+    register: SOCKET_PHP_FPM
+
+  - name: Ubuntu/Debian - generating nginx config file
+    template:
+      src: nginx-conf.j2
+      dest: "{{ SITES_AVAILABLE_NGINX }}/test_app"
+      mode: '0644'
+
+  - name: Ubuntu/Debian - generating default nginx config file
+    template:
+      src: nginx-conf-default.j2
+      dest: "{{ SITES_AVAILABLE_NGINX }}/default"
+      mode: '0644'
+
+  - name: Ubuntu/Debian - create a symbolic link nginx config
+    ansible.builtin.file:
+      src: "{{ SITES_AVAILABLE_NGINX }}/test_app"
+      dest: "{{ SITES_ENABLED_NGINX }}/test_app"
+      owner: root
+      group: root
+      state: link
+    notify:
+      - All - restart nginx
+
+  - name: Ubuntu/Debian - generating php file
+    template:
+      src: index.php.j2
+      dest: "{{ DEST_PATH_APP }}/index.php"
+      mode: '0555'
+    notify:
+      - All - restart nginx
+
+  when: ansible_os_family == "Debian"
+#========= End block for generating config and PHP page for Ubuntu/Debian
+
+#========= Begin block for generating config nginx RedHat
+- block:
+
+  - name: Redhat - generating php file
+    template:
+      src: index.php.j2
+      dest: "{{ DEST_PATH_APP_REDHAT }}/index.php"
+      mode: '0555'
+    notify:
+      - All - restart nginx
+
+  when: ansible_os_family == "RedHat"

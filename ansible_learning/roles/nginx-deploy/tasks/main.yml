@@ -1,58 +1,42 @@
 ---
-# tasks file for nginx-deploy
-- name: Generating nginx.repo for RedHat
-  template:
-    src: "nginx.repo.j2"
-    dest: "{{ DEST_SOURCES_LIST_REDHAT }}/nginx.repo"
-    mode: '0644'
-  when: ansible_os_family == "RedHat"
+- fail:
+    msg: Unsupported version OS
+  when: ( ansible_os_family == "RedHat" and ansible_distribution_major_version != "8" ) or
+          ( ansible_distribution == "Debian" and ansible_distribution_major_version != "10" ) or
+          ( ansible_distribution == "Ubuntu" and ansible_distribution_major_version != "20" )
 
-- name: Generating nginx.list for Debian/Ubuntu
-  template:
-    src: "nginx.list.j2"
-    dest: "{{ DEST_SOURCES_LIST_DEBIAN_UBUNTU }}/nginx.list"
-    mode: '0644'
-  when: ansible_os_family == "Debian"
-
-# Replace $key with the corresponding $key from your GPG error.
-- name: Add an apt key by id from a keyserver for Ubuntu/Debian
-  ansible.builtin.apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: ABF5BD827BD9BF62
-  when: ansible_os_family == "Debian"
-
-#======Install NGINX for RedHat =====================
+#======Install NGINX for RedHat =================
 - block:
-  - name: yum module disable nginx for RedHat
-    shell:
-      cmd: yum -y module disable nginx
 
-  - name: Install NGINX for RedHat
+  - name: RedHat - install nginx
     yum:
       name: nginx
       state: latest
       update_cache: yes
 
-  - name: Start NGINX and autorun for RedHat
+  - name: RedHat - start nginx and autorun
     ansible.builtin.service:
       name: nginx
       state: started
       enabled: yes
-  when: ansible_os_family == "RedHat"
-#=======================================
 
-#====== Install NGINX for Debian/Ubuntu =====================
+  when: ansible_os_family == "RedHat"
+#================================================
+
+#====== Install NGINX for Ubuntu/Debian ================
 - block:
-  - name: Install NGINX for Debian/Ubuntu
+
+  - name: Ubuntu/Debian - install nginx
     apt:
       name: nginx
       state: latest
       update_cache: yes
 
-  - name: Start NGINX and autorun for Debian/Ubuntu
+  - name: Debian - start nginx and autorun
     service:
       name: nginx
       state: started
       enabled: yes
+
   when: ansible_os_family == "Debian"
-#=======================================
+#================================================

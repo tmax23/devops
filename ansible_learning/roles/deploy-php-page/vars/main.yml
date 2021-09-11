@@ -1,0 +1,7 @@
+---
+# vars file for deploy-php-page
+DEST_PATH_APP: /var/www/html
+DEST_PATH_APP_REDHAT: /usr/share/nginx/html
+
+SITES_AVAILABLE_NGINX: /etc/nginx/sites-available
+SITES_ENABLED_NGINX: /etc/nginx/sites-enabled

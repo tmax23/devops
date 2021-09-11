@@ -1,0 +1,6 @@
+---
+# handlers file for deploy-php-page
+- name: All - restart nginx
+  service:
+    name: nginx
+    state: restarted

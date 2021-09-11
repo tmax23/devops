@@ -1,0 +1,62 @@
+---
+# tasks file for php-deploy
+- fail:
+    msg: Unsupported version OS
+  when: ( ansible_os_family == "RedHat" and ansible_distribution_major_version != "8" ) or
+          ( ansible_distribution == "Debian" and ansible_distribution_major_version != "10" ) or
+          ( ansible_distribution == "Ubuntu" and ansible_distribution_major_version != "20" )
+
+- block:
+
+  - name: RedHat - install PHP
+    yum:
+      name:
+        - php
+        - php-fpm
+        - php-mysqlnd
+      state: latest
+      update_cache: yes
+
+  - name: RedHat - start php-fpm and autorun
+    ansible.builtin.service:
+      name: php-fpm
+      state: started
+      enabled: yes
+
+  when: ansible_os_family == "RedHat"
+
+- block:
+
+  - name: Ubuntu/Debian - install PHP
+    apt:
+      name:
+        - php
+        - php-fpm
+        - php-mysql
+      state: latest
+      update_cache: yes
+
+  - name: Ubuntu/Debian - remove apache2
+    apt:
+      name: apache2
+      state: absent
+
+  - name: Ubuntu/Debian - search name of service php-fpm
+    shell:
+      cmd: ls /etc/init.d/php* | cut -d "/" -f 4
+    register: result
+
+  - name: Ubuntu/Debian - start php-fpm and autorun
+    ansible.builtin.service:
+      name: "{{ result.stdout }}"
+      state: started
+      enabled: yes
+
+  - name: Ubuntu/Debian - restore index.html
+    shell:
+       cmd: mv /var/www/html/index.nginx-debian.html /var/www/html/index.html
+    ignore_errors: yes
+    notify:
+      - Ubuntu/Debian - restart nginx
+
+  when: ansible_os_family == "Debian"

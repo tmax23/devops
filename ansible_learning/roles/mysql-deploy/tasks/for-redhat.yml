@@ -1,69 +1,24 @@
 ---
-- name: Download MySQL Yum Repository for RedHat-6
-  get_url:
-    url: "{{ MYSQL_YUM_6_REPO }}"
-    dest: /home/mysql80-community-release.rpm
-    mode: '0664'
-  when: ansible_distribution_major_version == "6"
+# =========== Begin - RedHat block: install MySQL======
+- name: RedHat block - install MySQL
+  block:
 
-- name: Download MySQL Yum Repository for RedHat-7
-  get_url:
-    url: "{{ MYSQL_YUM_7_REPO }}"
-    dest: /home/mysql80-community-release.rpm
-    mode: '0664'
-  when: ansible_distribution_major_version == "7"
+  - name: RedHat - install MySQL
+    yum:
+      name: mysql-server
+      state: latest
+      update_cache: yes
 
-- name: Download MySQL Yum Repository for RedHat-8
-  get_url:
-    url: "{{ MYSQL_YUM_8_REPO }}"
-    dest: /home/mysql80-community-release.rpm
-    mode: '0664'
-  when: ansible_distribution_major_version == "8"
+  - name: RedHat - start MySQL and autorun
+    ansible.builtin.service:
+      name: mysqld
+      state: started
+      enabled: yes
 
-- name: Install MySQL Yum Repository for RedHat
-  yum:
-    name: /home/mysql80-community-release.rpm
-    state: present
+  - name: RedHat - set MySQL root password
+    shell:
+      cmd: mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ MYSQL_PASSWORD }}';"
+    ignore_errors: yes
+    
   when: ansible_os_family == "RedHat"
-
-- name: Install MySQL Yum Repository for RedHat
-  yum:
-    name: /home/mysql80-community-release.rpm
-    state: present
-  when: ansible_os_family == "RedHat"
-
-- name: yum module disable mysql for RedHat-8
-  shell:
-    cmd: yum -y module disable mysql
-  when: ansible_distribution_major_version == "8"
-
-- name: Install MySQL for RedHat
-  yum:
-    name: mysql-community-server
-    state: latest
-    update_cache: yes
-  when: ansible_os_family == "RedHat"
-
-- name: Start MySql and autorun for RedHat
-  ansible.builtin.service:
-    name: mysqld
-    state: started
-    enabled: yes
-  when: ansible_os_family == "RedHat"
-
-- name: grep 'temporary password' for RedHat
-  shell:
-    cmd: grep 'temporary password' /var/log/mysqld.log | cut -d " " -f 13
-  register: password
-  when: ansible_os_family == "RedHat"
-
-- name: The histexpand shell option is OFF for RedHat
-  become: no
-  shell:
-    cmd: set +o histexpand
-  when: ansible_os_family == "RedHat"
-
-- name: Set MySQL root Password for RedHat
-  shell:
-    cmd: mysql -u root -p"{{ password.stdout }}" --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ MYSQL_PASSWORD }}';"
-  when: ansible_os_family == "RedHat"
+# =========== End - RedHat block: install MySQL========

@@ -1,5 +1,28 @@
 ---
 # tasks file for remove-app
+- fail:
+    msg: Unsupported version OS
+  when: ( ansible_os_family == "RedHat" and ansible_distribution_major_version != "8" ) or
+          ( ansible_distribution == "Debian" and ansible_distribution_major_version != "10" ) or
+          ( ansible_distribution == "Ubuntu" and ansible_distribution_major_version != "20" )
 
 - include: remove-mysql.yml
 - include: remove-nginx.yml
+- include: remove-php.yml
+
+- block:
+
+  - name: Ubuntu/Debian - remove useless packages from the cache
+    apt:
+      autoclean: yes
+
+  - name: Ubuntu/Debian - remove dependencies that are no longer required
+    apt:
+      autoremove: yes
+
+  when: ansible_os_family == "Debian"
+
+- name: RedHat - removes all "leaf" packages
+  yum:
+    autoremove: yes
+  when: ansible_os_family == "RedHat"

@@ -1,0 +1,8 @@
+- name: Test tasks
+  hosts: all
+  become: yes
+  # any_errors_fatal: true
+
+  tasks:
+    - name:
+      reboot:

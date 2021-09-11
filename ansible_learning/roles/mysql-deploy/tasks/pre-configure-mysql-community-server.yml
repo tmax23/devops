@@ -1,5 +1,5 @@
 ---
-- name: Pre-configure mysql-community-server passphrase Ubuntu/Debian
+- name: Ubuntu/Debian - pre-configure mysql-community-server passphrase
   ansible.builtin.debconf:
     name: mysql-community-server
     question: mysql-community-server/root-pass
@@ -7,7 +7,7 @@
     vtype: password
   no_log: True
 
-- name: Pre-configure mysql-community-server re-passphrase Ubuntu/Debian
+- name: Ubuntu/Debian - pre-configure mysql-community-server re-passphrase
   ansible.builtin.debconf:
       name: mysql-community-server
       question: mysql-community-server/re-root-pass

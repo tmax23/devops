@@ -1,39 +1,47 @@
 ---
-- name: Install gnupg for Ubuntu/Debian
-  apt:
-    name: gnupg
-    state: latest
-  when: ansible_os_family == "Debian"
+# =========== Begin - Debian block: create sources list=======
+- name: Debian block - create sources list
+  block:
 
-- name: Add an apt key by id from a keyserver for Ubuntu/Debian
-  ansible.builtin.apt_key:
-    keyserver: pgp.mit.edu
-    id: 5072E1F5
-  when: ansible_os_family == "Debian"
+  - name: Debian - install gnupg
+    apt:
+      name: gnupg
+      state: latest
 
-- name: Generating mysql.list for Ubuntu/Debian
-  template:
-    src: "mysql.list.j2"
-    dest: "{{ DEST_SOURCES_LIST_UBUNTU_DEBIAN }}/mysql.list"
-    mode: '0644'
-  when: ansible_os_family == "Debian"
+  - name: Debian - add an apt key by id from a keyserver
+    ansible.builtin.apt_key:
+      keyserver: pgp.mit.edu
+      id: 5072E1F5
 
-- name: Pre-configure mysql-community-server for Ubuntu/Debian
-  include_tasks: pre-configure-mysql-community-server.yml
-  when: ansible_os_family == "Debian"
+  - name: Debian - generating mysql.list
+    template:
+      src: "mysql.list.j2"
+      dest: "{{ DEST_SOURCES_LIST_DEBIAN }}/mysql.list"
+      mode: '0644'
 
-- name: Install MySQL for Ubuntu/Debian
-  apt:
-    name: mysql-server
-    state: latest
-    update_cache: yes
-  environment:
-    DEBIAN_FRONTEND: noninteractive
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian"
+# =========== End - Debian block: create sources list=========
 
-- name: Start MySql and autorun for Debian/Ubuntu
-  ansible.builtin.service:
-    name: mysql
-    state: started
-    enabled: yes
+# =========== Begin - Ubuntu/Debian block: install MySQL======
+- name: Ubuntu/Debian block - install MySQL
+  block:
+
+  - name: Ubuntu/Debian - pre-configure mysql-community-server
+    include_tasks: pre-configure-mysql-community-server.yml
+
+  - name: Ubuntu/Debian - install MySQL
+    apt:
+      name: mysql-server
+      state: latest
+      update_cache: yes
+    environment:
+      DEBIAN_FRONTEND: noninteractive
+
+  - name: Debian/Ubuntu - start MySQL and autorun
+    ansible.builtin.service:
+      name: mysql
+      state: started
+      enabled: yes
+
   when: ansible_os_family == "Debian"
+# =========== End - Ubuntu/Debian block: install MySQL========
