@@ -3,9 +3,10 @@
   hosts: "{{ HOSTS }}"
   become: yes
   any_errors_fatal: true
-  
+
   roles:
-       - mysql-deploy
-       - nginx-deploy
-       - php-deploy
-       - deploy-php-page
+      # - mysql-deploy
+      # - nginx-deploy
+      # - php-deploy
+      - mysql-create-db
+      # - deploy-php-page

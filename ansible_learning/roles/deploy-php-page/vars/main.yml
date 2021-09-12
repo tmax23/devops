@@ -5,3 +5,9 @@ DEST_PATH_APP_REDHAT: /usr/share/nginx/html
 
 SITES_AVAILABLE_NGINX: /etc/nginx/sites-available
 SITES_ENABLED_NGINX: /etc/nginx/sites-enabled
+
+# variables from "mysql-create-db" role
+TEST_USER_PASSWORD: arwwlTaas12
+TEST_USER_NAME    : test_user
+TEST_DB_NAME      : test_db
+TEST_TABLE_NAME   : todo_list

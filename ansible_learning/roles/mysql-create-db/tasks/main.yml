@@ -1,0 +1,55 @@
+---
+# tasks file for mysql-create-db
+- name: RedHat - install python3-pip
+  yum:
+    name: python3-pip
+    state: latest
+    update_cache: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Ubuntu/Debian - install python3-pip
+  apt:
+    name: python3-pip
+    state: latest
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: All - install PyMySQL
+  pip:
+    name: pymysql
+
+- name: Debian/Redhat - create database MySQL
+  community.mysql.mysql_db:
+    login_user: root
+    login_password: "{{ MYSQL_PASSWORD }}"
+    name: "{{ TEST_DB_NAME }}"
+    state: present
+  when: ansible_os_family == "RedHat" or ansible_distribution == "Debian"
+
+- name: Debian/Redhat - create user for TEST_DB
+  community.mysql.mysql_user:
+    login_user: root
+    login_password: "{{ MYSQL_PASSWORD }}"
+    name: "{{ TEST_USER_NAME }}"
+    password: "{{ TEST_USER_PASSWORD }}"
+    priv: 'test_db.*:ALL'
+    state: present
+  when: ansible_os_family == "RedHat" or ansible_distribution == "Debian"
+
+- name: Ubuntu - create database MySQL
+  community.mysql.mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: "{{ TEST_DB_NAME }}"
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Ubuntu - create user for TEST_DB
+  community.mysql.mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: "{{ TEST_USER_NAME }}"
+    password: "{{ TEST_USER_PASSWORD }}"
+    priv: 'test_db.*:ALL'
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- include: create-table.yml

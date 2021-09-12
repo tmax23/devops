@@ -7,6 +7,7 @@
     apt:
       name: gnupg
       state: latest
+      update_cache: yes
 
   - name: Debian - add an apt key by id from a keyserver
     ansible.builtin.apt_key:

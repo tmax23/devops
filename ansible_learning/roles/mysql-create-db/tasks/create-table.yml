@@ -1,0 +1,23 @@
+---
+
+- name: Run several insert queries against db test_db in single transaction
+  community.mysql.mysql_query:
+    login_user: "{{ TEST_USER_NAME }}"
+    login_password: "{{ TEST_USER_PASSWORD }}"
+    login_db: "{{ TEST_DB_NAME }}"
+    query: >
+        CREATE TABLE {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (
+        item_id INT AUTO_INCREMENT,content VARCHAR(255),
+        PRIMARY KEY(item_id));
+    single_transaction: yes
+  ignore_errors: yes
+
+- name: Run several insert queries against db test_db in single transaction
+  community.mysql.mysql_query:
+    login_user: "{{ TEST_USER_NAME }}"
+    login_password: "{{ TEST_USER_PASSWORD }}"
+    login_db: "{{ TEST_DB_NAME }}"
+    query: >
+       INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }}
+       (content) VALUES ("My second-2 important item");
+    single_transaction: yes

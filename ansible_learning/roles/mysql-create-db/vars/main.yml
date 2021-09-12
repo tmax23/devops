@@ -1,0 +1,13 @@
+---
+# vars file for mysql-create-db
+MYSQL_PASSWORD: arlTaa+s12Ra
+
+TEST_USER_PASSWORD: arwwlTaas12
+TEST_USER_NAME    : test_user
+TEST_DB_NAME      : test_db
+TEST_TABLE_NAME   : todo_list
+
+CONTENT_FOR_TABLE:
+             - Hello
+             - sdfsdfsdfsdf
+             - sssdsddddd
