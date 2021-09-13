@@ -7,11 +7,11 @@
   when: ansible_os_family == "RedHat"
 #======= End RedHat ========================
 
-- name: Debian - remove files
-  ansible.builtin.file:
-    path: /etc/apt/sources.list.d/mysql.list
-    state: absent
-  when: ansible_distribution == "Debian"
+# - name: Debian - remove files
+#   ansible.builtin.file:
+#     path: /etc/apt/sources.list.d/mysql.list
+#     state: absent
+#   when: ansible_distribution == "Debian"
 
 - name: Ubuntu/Debian - remove packages
   apt:
@@ -22,5 +22,6 @@
 
 - name: All - remove files and dirs
   ansible.builtin.file:
-    path: "{{ REMOVE_FILES_ALL }}"
+    path: "{{ item }}"
     state: absent
+  loop: "{{ REMOVE_FILES_ALL }}"

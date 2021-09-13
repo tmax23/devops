@@ -24,6 +24,7 @@ LIST_DISTS_UBUNTU_DEBIAN:
 
 REMOVE_FILES_ALL:
                         - /var/lib/mysql/
+                        - /etc/apt/sources.list.d/mysql.list
                         - /var/log/mysqld.log
                         - /var/www/html/
                         - /usr/share/nginx/html/
