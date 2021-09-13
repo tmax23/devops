@@ -5,8 +5,8 @@
   any_errors_fatal: true
 
   roles:
-       - mysql-deploy
-       - nginx-deploy
-       - php-deploy
+       # - mysql-deploy
+       # - nginx-deploy
+       # - php-deploy
        - mysql-create-db
        - deploy-php-page

@@ -1,6 +1,6 @@
 ---
 # vars file for mysql-create-db
-# MYSQL_PASSWORD: arlTaas12Ra
+MYSQL_PASSWORD: arlTaas12Ra
 MYSQL_SOCKET_REDHAT       : /var/lib/mysql/mysql.sock
 MYSQL_SOCKET_UBUNTU_DEBIAN: /var/run/mysqld/mysqld.sock
 
