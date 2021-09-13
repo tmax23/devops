@@ -28,7 +28,6 @@ REMOVE_FILES_ALL:
                         - /var/log/mysqld.log
                         - /var/www/html/
                         - /usr/share/nginx/html/
-                        - /etc/nginx/sites-available/
                         - /etc/my.cnf.d/
                         - /etc/mysql/
 SERVICES_UBUNTU_DEBIAN:
