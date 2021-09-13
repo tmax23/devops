@@ -18,7 +18,7 @@ LIST_DISTS_UBUNTU_DEBIAN:
                         - mysql-common
                         - php
                         - php-fpm
-                        - php-mysqlnd
+                        - php-mysql
                         - nginx
                         - python3-pip
 
@@ -32,7 +32,6 @@ REMOVE_FILES_ALL:
                         - /etc/mysql/
 SERVICES_UBUNTU_DEBIAN:
                         - nginx
-                        - mysql
 SERVICES_REDHAT:
                         - nginx
                         - mysqld
