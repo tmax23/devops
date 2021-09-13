@@ -52,11 +52,4 @@
       state: started
       enabled: yes
 
-  - name: Ubuntu/Debian - restore index.html
-    shell:
-       cmd: mv /var/www/html/index.nginx-debian.html /var/www/html/index.html
-    ignore_errors: yes
-    notify:
-      - Ubuntu/Debian - restart nginx
-
   when: ansible_os_family == "Debian"

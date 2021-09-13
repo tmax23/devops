@@ -1,8 +1,10 @@
 - name: Test tasks
-  hosts: all
+  hosts: aws-debian
   become: yes
   # any_errors_fatal: true
 
   tasks:
-    - name:
-      reboot:
+   - name: Debian - remove files
+     ansible.builtin.file:
+       path: /etc/apt/sources.list.d/mysql.list
+       state: absent

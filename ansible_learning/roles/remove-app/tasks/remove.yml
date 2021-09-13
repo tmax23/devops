@@ -1,0 +1,26 @@
+---
+#======= Begin RedHat ======================
+- name: RedHat - remove packages
+  yum:
+    name: "{{ LIST_DISTS_REDHAT }}"
+    state: absent
+  when: ansible_os_family == "RedHat"
+#======= End RedHat ========================
+
+- name: Debian - remove files
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/mysql.list
+    state: absent
+  when: ansible_distribution == "Debian"
+
+- name: Ubuntu/Debian - remove packages
+  apt:
+    name: "{{ LIST_DISTS_UBUNTU_DEBIAN }}"
+    purge: yes
+    state: absent
+  when: ansible_os_family == "Debian"
+
+- name: All - remove files and dirs
+  ansible.builtin.file:
+    path: "{{ REMOVE_FILES_ALL }}"
+    state: absent

@@ -1,3 +1,38 @@
 ---
 # vars file for remove-app
 DEST_SOURCES_LIST_DEBIAN: /etc/apt/sources.list.d
+
+LIST_DISTS_REDHAT:
+                        - mysql-server
+                        - mysql
+                        - mysql-common
+                        - mysql-errmsg
+                        - php
+                        - php-fpm
+                        - php-mysqlnd
+                        - nginx
+                        - python3-pip
+
+LIST_DISTS_UBUNTU_DEBIAN:
+                        - mysql-server
+                        - mysql-common
+                        - php
+                        - php-fpm
+                        - php-mysqlnd
+                        - nginx
+                        - python3-pip
+
+REMOVE_FILES_ALL:
+                        - /var/lib/mysql/
+                        - /var/log/mysqld.log
+                        - /var/www/html/
+                        - /usr/share/nginx/html/
+                        - /etc/nginx/sites-available/
+                        - /etc/my.cnf.d/
+                        - /etc/mysql/
+SERVICES_UBUNTU_DEBIAN:
+                        - nginx
+                        - mysql
+SERVICES_REDHAT:
+                        - nginx
+                        - mysqld

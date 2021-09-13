@@ -1,13 +1,26 @@
 ---
 # vars file for mysql-create-db
-MYSQL_PASSWORD: arlTaa+s12Ra
+# MYSQL_PASSWORD: arlTaas12Ra
+MYSQL_SOCKET_REDHAT       : /var/lib/mysql/mysql.sock
+MYSQL_SOCKET_UBUNTU_DEBIAN: /var/run/mysqld/mysqld.sock
 
-TEST_USER_PASSWORD: arwwlTaas12
+
+TEST_USER_PASSWORD: arwwTaas12
 TEST_USER_NAME    : test_user
 TEST_DB_NAME      : test_db
 TEST_TABLE_NAME   : todo_list
 
+TABLE: >
+    CREATE TABLE {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (
+    item_id INT AUTO_INCREMENT,content VARCHAR(255),
+    PRIMARY KEY(item_id));
+
 CONTENT_FOR_TABLE:
-             - Hello
-             - sdfsdfsdfsdf
-             - sssdsddddd
+  - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("My important item 1");
+  - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("My important item 2");
+  - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("My important item 3");
+  - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("My important item 4");
+  - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("My important item 5");
+  - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("My important item 6");
+  - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("My important item 7");
+  - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("OppaaaPa");

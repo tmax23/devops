@@ -32,7 +32,7 @@
       state: latest
       update_cache: yes
 
-  - name: Debian - start nginx and autorun
+  - name: Ubuntu/Debian - start nginx and autorun
     service:
       name: nginx
       state: started

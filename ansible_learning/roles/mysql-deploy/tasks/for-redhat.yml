@@ -15,10 +15,5 @@
       state: started
       enabled: yes
 
-  - name: RedHat - set MySQL root password
-    shell:
-      cmd: mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ MYSQL_PASSWORD }}';"
-    ignore_errors: yes
-    
   when: ansible_os_family == "RedHat"
 # =========== End - RedHat block: install MySQL========

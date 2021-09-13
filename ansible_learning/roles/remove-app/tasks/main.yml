@@ -6,9 +6,15 @@
           ( ansible_distribution == "Debian" and ansible_distribution_major_version != "10" ) or
           ( ansible_distribution == "Ubuntu" and ansible_distribution_major_version != "20" )
 
-- include: remove-mysql.yml
-- include: remove-nginx.yml
-- include: remove-php.yml
+- name: Ubuntu/Debian - stop services and autorun off
+  service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  loop: "{{ SERVICES_UBUNTU_DEBIAN }}"
+  when: ansible_os_family == "Debian"
+
+- include: remove.yml
 
 - block:
 
