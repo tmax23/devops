@@ -24,3 +24,4 @@ CONTENT_FOR_TABLE:
   - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("My important item 6");
   - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("My important item 7");
   - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("OppaaaPa");
+  - INSERT INTO {{ TEST_DB_NAME }}.{{ TEST_TABLE_NAME }} (content) VALUES ("OppaaaPa!!!???");

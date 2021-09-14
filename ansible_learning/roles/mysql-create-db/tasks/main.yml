@@ -20,28 +20,32 @@
 
 - name: Redhat - create database MySQL
   community.mysql.mysql_db:
+    check_implicit_admin: yes
     login_unix_socket: "{{ MYSQL_SOCKET_REDHAT }}"
     name: "{{ TEST_DB_NAME }}"
     state: present
   when: ansible_os_family == "RedHat"
 
+- name: Ubuntu - create database MySQL
+  community.mysql.mysql_db:
+    check_implicit_admin: yes
+    login_unix_socket: "{{ MYSQL_SOCKET_UBUNTU_DEBIAN }}"
+    name: "{{ TEST_DB_NAME }}"
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
 - name: Debian - create database MySQL
   community.mysql.mysql_db:
+    check_implicit_admin: yes
     login_user: root
     login_password: "{{ MYSQL_PASSWORD }}"
     name: "{{ TEST_DB_NAME }}"
     state: present
   when: ansible_distribution == "Debian"
 
-- name: Ubuntu - create database MySQL
-  community.mysql.mysql_db:
-    login_unix_socket: "{{ MYSQL_SOCKET_UBUNTU_DEBIAN }}"
-    name: "{{ TEST_DB_NAME }}"
-    state: present
-  when: ansible_distribution == "Ubuntu"
-
 - name: Redhat - create user for TEST_DB
   community.mysql.mysql_user:
+    check_implicit_admin: yes
     login_unix_socket: "{{ MYSQL_SOCKET_REDHAT }}"
     name: "{{ TEST_USER_NAME }}"
     password: "{{ TEST_USER_PASSWORD }}"
@@ -51,6 +55,7 @@
 
 - name: Ubuntu - create user for TEST_DB
   community.mysql.mysql_user:
+    check_implicit_admin: yes
     login_unix_socket: "{{ MYSQL_SOCKET_UBUNTU_DEBIAN }}"
     name: "{{ TEST_USER_NAME }}"
     password: "{{ TEST_USER_PASSWORD }}"
@@ -60,6 +65,7 @@
 
 - name: Debian - create user for TEST_DB
   community.mysql.mysql_user:
+    check_implicit_admin: yes
     login_user: root
     login_password: "{{ MYSQL_PASSWORD }}"
     name: "{{ TEST_USER_NAME }}"
