@@ -1,0 +1,8 @@
+---
+- name: Deploy docker APP on CentOS-8
+  hosts: "{{ HOSTS }}"
+  become: yes
+  any_errors_fatal: true
+
+  roles:
+       - deploy_docker-app

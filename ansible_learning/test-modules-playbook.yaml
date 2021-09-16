@@ -1,10 +1,9 @@
 - name: Test tasks
-  hosts: aws-debian
+  hosts: gcp-centos
   become: yes
   # any_errors_fatal: true
 
   tasks:
-   - name: Debian - remove files
-     ansible.builtin.file:
-       path: /etc/apt/sources.list.d/mysql.list
-       state: absent
+
+    - ansible.builtin.debug:
+        msg: "{{ ansible_user }}" User

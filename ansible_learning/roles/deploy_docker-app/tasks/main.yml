@@ -1,0 +1,81 @@
+---
+# tasks file for deploy_docker-app
+
+- fail:
+    msg: Unsupported version OS - must be CentOS-8
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version != "8"
+
+- name: Uninstall old Docker
+  yum:
+    name: "{{ YUM_REMOVE_LIST }}"
+    state: absent
+
+# - name: Remove old docker files and dirs
+#   ansible.builtin.file:
+#     path: "{{ item }}"
+#     state: absent
+#   loop: "{{ REMOVE_DIRS_FILES_LIST }}"
+
+- name: Install yum-utils
+  yum:
+    name: yum-utils
+    state: latest
+    update_cache: yes
+
+- name: Add docker-ce.repo repository list
+  shell:
+    cmd: yum-config-manager --add-repo "{{ DOCKER_CE_REPO }}"
+
+- name: Enable the nightly repository of docker
+  shell:
+    cmd: yum-config-manager --enable docker-ce-nightly
+
+- name: Install docker-ce
+  yum:
+    name: "{{ YUM_INSTALL_LIST }}"
+    state: latest
+    update_cache: yes
+
+- name: Start and autorun the docker
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Add the "{{ ansible_user }}" to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+  notify: Restart docker service
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Activating the changes to group docker (reset connection)
+  meta: reset_connection
+
+- name: Docker run hello-world container
+  become: no
+  shell:
+    cmd: docker run hello-world
+  register: results
+  failed_when: "'Hello from Docker!' not in results.stdout"
+
+- name: Get docker-compose
+  get_url:
+    url: "{{ URL_DOCKER_COMPOSE }}"
+    dest: /usr/local/bin/docker-compose
+    mode: '0755'
+
+- name: chmod +x docker-compose
+  file:
+    dest: /usr/local/bin/docker-compose
+    mode: a+x
+
+- name: Test - docker-compose --version
+  become: no
+  shell:
+    cmd: docker-compose --version
+  register: results
+  failed_when: "'docker-compose version' not in results.stdout"

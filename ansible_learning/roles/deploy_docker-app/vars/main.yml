@@ -1,0 +1,22 @@
+---
+# vars file for deploy_docker-app
+DOCKER_CE_REPO: https://download.docker.com/linux/centos/docker-ce.repo
+
+YUM_REMOVE_LIST:
+                - docker-client
+                - docker-client-latest
+                - docker-common
+                - docker-latest
+                - docker-latest-logrotate
+                - docker-logrotate
+                - docker-engine
+
+YUM_INSTALL_LIST:
+                - docker-ce
+                - docker-ce-cli
+                - containerd.io
+
+REMOVE_DIRS_FILES_LIST:
+                - /var/lib/docker/
+
+URL_DOCKER_COMPOSE: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ ansible_system }}-{{ ansible_machine }}
