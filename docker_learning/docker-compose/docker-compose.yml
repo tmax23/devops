@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 8000:8080
+    volumes:
+      - ./website/:/var/www/
+      - ./nginx/conf/:/etc/nginx/conf.d/
+      - ./nginx/log/:/var/log/nginx/
+    networks:
+      - mynet
+
+  db:
+    image: mysql:latest
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: test_db
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_PASSWORD: 1234567
+      MYSQL_USER: test_user
+    volumes:
+      - ./mysql/:/var/lib/mysql/
+      - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
+    ports:
+      - 33066:3306
+    networks:
+      - mynet
+
+  phpfpm:
+    build: .
+    container_name: phpfpm
+    restart: unless-stopped
+    volumes:
+     - ./website/:/var/www/
+    networks:
+     - mynet
+
+networks:
+  mynet:
+    driver: bridge

@@ -1,20 +1,14 @@
 ---
-# tasks file for deploy_docker-app
 
 - fail:
-    msg: Unsupported version OS - must be CentOS-8
-  when: ansible_distribution == "CentOS" and ansible_distribution_major_version != "8"
+    msg: Unsupported version OS - must be CentOS-8 or RedHat-8
+  when: ( ansible_distribution == "CentOS" or ansible_distribution == "RedHat")
+        and ansible_distribution_major_version != "8"
 
 - name: Uninstall old Docker
   yum:
     name: "{{ YUM_REMOVE_LIST }}"
     state: absent
-
-# - name: Remove old docker files and dirs
-#   ansible.builtin.file:
-#     path: "{{ item }}"
-#     state: absent
-#   loop: "{{ REMOVE_DIRS_FILES_LIST }}"
 
 - name: Install yum-utils
   yum:
@@ -25,10 +19,6 @@
 - name: Add docker-ce.repo repository list
   shell:
     cmd: yum-config-manager --add-repo "{{ DOCKER_CE_REPO }}"
-
-- name: Enable the nightly repository of docker
-  shell:
-    cmd: yum-config-manager --enable docker-ce-nightly
 
 - name: Install docker-ce
   yum:
@@ -73,9 +63,33 @@
     dest: /usr/local/bin/docker-compose
     mode: a+x
 
-- name: Test - docker-compose --version
+- name: Test docker-compose --version
   become: no
   shell:
     cmd: docker-compose --version
   register: results
   failed_when: "'docker-compose version' not in results.stdout"
+
+
+#==========================================================
+#==========================================================
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: docker-compose.zip
+    dest: /etc/foo.conf
+    owner: foo
+    group: foo
+    mode: '0644'
+
+- name: Unarchive a file that is already on the remote machine
+  ansible.builtin.unarchive:
+    src: /tmp/foo.zip
+    dest: /usr/local/bin
+    remote_src: yes
+
+
+- name: docker-compose up
+  become: no
+  shell:
+    cmd: docker-compose up

@@ -16,7 +16,4 @@ YUM_INSTALL_LIST:
                 - docker-ce-cli
                 - containerd.io
 
-REMOVE_DIRS_FILES_LIST:
-                - /var/lib/docker/
-
 URL_DOCKER_COMPOSE: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ ansible_system }}-{{ ansible_machine }}

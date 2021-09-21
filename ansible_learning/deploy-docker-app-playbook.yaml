@@ -1,5 +1,5 @@
 ---
-- name: Deploy docker APP on CentOS-8
+- name: Deploy docker APP on CentOS-8 and RedHat-8
   hosts: "{{ HOSTS }}"
   become: yes
   any_errors_fatal: true
