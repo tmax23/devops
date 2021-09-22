@@ -3,6 +3,9 @@ version: "3.7"
 services:
   nginx:
     image: nginx:latest
+    depends_on:
+      - db
+      - phpfpm
     container_name: nginx
     restart: unless-stopped
     ports:

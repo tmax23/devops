@@ -1,9 +1,13 @@
 - name: Test tasks
-  hosts: gcp-centos
+  hosts: aws-redhat
   become: yes
   # any_errors_fatal: true
 
   tasks:
 
-    - ansible.builtin.debug:
-        msg: "{{ ansible_user }}" User
+    - name: Compress docker-compose app from local directory
+      community.general.archive:
+        path: /home/maxim/devops/docker_learning/docker-compose
+        dest: /home/maxim/devops/ansible_learning/roles/deploy_docker-app/files/docker-compose.tgz
+      delegate_to: localhost
+      become: no

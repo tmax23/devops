@@ -17,3 +17,6 @@ YUM_INSTALL_LIST:
                 - containerd.io
 
 URL_DOCKER_COMPOSE: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ ansible_system }}-{{ ansible_machine }}
+
+DOCKER_COMPOSE_APP_DIR: /home/maxim/devops/docker_learning/docker-compose
+THIS_ROLE_FILES_DIR: /home/maxim/devops/ansible_learning/roles/deploy_docker-app/files
