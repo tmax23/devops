@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deployment-replicas
+  labels:
+    app  : my-k8s-app
+    env  : prod
+    owner: MaximTretyakov
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      project: yyy
+  template:
+    metadata:
+      labels:
+        project: yyy
+    spec:
+      containers:
+        - name: yyy-web
+          image: tmax23/k8s-app
+          ports:
+            - containerPort: 80

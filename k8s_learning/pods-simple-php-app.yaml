@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8s-web
+  labels:
+    env: prod
+    app: main
+    owner: maxim
+spec:
+  containers:
+    - name : my-web-app
+      image: tmax23/k8s-app:latest
+      ports:
+        - containerPort: 80
+
+    - name : tomcat-web-app
+      image: tomcat:8.5.38
+      ports:
+        - containerPort: 8080

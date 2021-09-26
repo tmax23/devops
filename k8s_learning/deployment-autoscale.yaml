@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deployment-autoscaling
+  labels:
+    app  : my-k8s-app
+    env  : prod
+    owner: MaximTretyakov
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      project: zzz
+  template:
+    metadata:
+      labels:
+        project: zzz
+    spec:
+      containers:
+        - name: zzz-web
+          image: tmax23/k8s-app
+          ports:
+            - containerPort: 80
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-autoscaling
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v2beta2v1
+    kind: Deployment
+    name: my-web-deployment-autoscaling
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+   - type: Resource
+     resource:
+       name: cpu
+       target:
+         type: Utilization
+         averageUtilization: 70
+   - type: Resource
+     resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
