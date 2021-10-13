@@ -47,3 +47,5 @@ kubectl get all
 kubectl get configmap
 kubectl get secret
 kubectl --help
+
+kubectl cp index.html nginx-deployment-6cbdd46db5-5j7bz:/usr/share/nginx/html

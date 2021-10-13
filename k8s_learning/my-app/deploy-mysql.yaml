@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-env
+data:
+  MYSQL_DATABASE: "test_db"
+  MYSQL_ROOT_PASSWORD: "123456"
+  MYSQL_PASSWORD: "1234567"
+  MYSQL_USER: "test_user"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      volumes:
+      - name: db-disk
+        persistentVolumeClaim:
+           claimName: db-disk-pvc
+      - name: mysql-restore-db
+        hostPath:
+          # directory location on host
+          path: /tmp/mysql/
+          # this field is optional
+          type: DirectoryOrCreate
+      containers:
+      - name: mysql
+        image: mysql:latest
+        ports:
+        - containerPort: 3306
+        envFrom:
+        - configMapRef:
+            name: mysql-env
+        volumeMounts:
+        - mountPath: /var/lib/mysql/
+          name: db-disk
+        - mountPath: /docker-entrypoint-initdb.d/ #backup.sql
+          name: mysql-restore-db
+# gcloud compute scp --recurse VM_NAME:/tmp/mysql/ /home/maxim/devops/docker_learning/docker-compose/backup.sql

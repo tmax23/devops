@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpfpm-deployment
+  labels:
+    app: phpfpm
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: phpfpm
+  template:
+    metadata:
+      labels:
+        app: phpfpm
+    spec:
+      volumes:
+      - name: app-disk
+        persistentVolumeClaim:
+           claimName: app-disk-pvc
+           readOnly: true
+      containers:
+      - name: phpfpm
+        image: tmax23/php-fpm:v1
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+        - mountPath: /var/www/
+          readOnly: true
+          name: app-disk
