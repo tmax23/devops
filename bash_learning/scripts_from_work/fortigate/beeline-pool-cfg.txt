@@ -1,0 +1,272 @@
+config firewall address
+edit "GPRS-IP-beeline-RUS-213.221.12.0/24"
+set subnet 213.221.12.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.91.64/27"
+set subnet 217.118.91.64/27
+next
+edit "GPRS-IP-beeline-RUS-85.249.16.0/22"
+set subnet 85.249.16.0/22
+next
+edit "GPRS-IP-beeline-RUS-194.186.221.0/24"
+set subnet 194.186.221.0/24
+next
+edit "GPRS-IP-beeline-RUS-109.197.204.0/24"
+set subnet 109.197.204.0/24
+next
+edit "GPRS-IP-beeline-RUS-194.186.78.0/24"
+set subnet 194.186.78.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.93.160/28"
+set subnet 217.118.93.160/28
+next
+edit "GPRS-IP-beeline-RUS-46.16.96.0/21"
+set subnet 46.16.96.0/21
+next
+edit "GPRS-IP-beeline-RUS-217.118.81.0/24"
+set subnet 217.118.81.0/24
+next
+edit "GPRS-IP-beeline-RUS-109.197.205.0/24"
+set subnet 109.197.205.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.91.96/27"
+set subnet 217.118.91.96/27
+next
+edit "GPRS-IP-beeline-RUS-62.231.7.208/28"
+set subnet 62.231.7.208/28
+next
+edit "GPRS-IP-beeline-RUS-85.249.20.0/22"
+set subnet 85.249.20.0/22
+next
+edit "GPRS-IP-beeline-RUS-188.65.244.0/22"
+set subnet 188.65.244.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.91.48/28"
+set subnet 217.118.91.48/28
+next
+edit "GPRS-IP-beeline-RUS-195.239.227.0/24"
+set subnet 195.239.227.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.78.0/24"
+set subnet 217.118.78.0/24
+next
+edit "GPRS-IP-beeline-RUS-188.65.242.0/23"
+set subnet 188.65.242.0/23
+next
+edit "GPRS-IP-beeline-RUS-85.249.160.0/20"
+set subnet 85.249.160.0/20
+next
+edit "GPRS-IP-beeline-RUS-83.220.226.0/24"
+set subnet 83.220.226.0/24
+next
+edit "GPRS-IP-beeline-RUS-109.197.200.0/22"
+set subnet 109.197.200.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.93.176/28"
+set subnet 217.118.93.176/28
+next
+edit "GPRS-IP-beeline-RUS-217.118.86.0/24"
+set subnet 217.118.86.0/24
+next
+edit "GPRS-IP-beeline-RUS-83.220.225.0/24"
+set subnet 83.220.225.0/24
+next
+edit "GPRS-IP-beeline-RUS-89.113.8.0/22"
+set subnet 89.113.8.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.64.0/24"
+set subnet 217.118.64.0/24
+next
+edit "GPRS-IP-beeline-RUS-85.115.243.0/24"
+set subnet 85.115.243.0/24
+next
+edit "GPRS-IP-beeline-RUS-85.115.236.0/22"
+set subnet 85.115.236.0/22
+next
+edit "GPRS-IP-beeline-RUS-213.234.222.0/24"
+set subnet 213.234.222.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.95.0/24"
+set subnet 217.118.95.0/24
+next
+edit "GPRS-IP-beeline-RUS-89.113.12.0/22"
+set subnet 89.113.12.0/22
+next
+edit "GPRS-IP-beeline-RUS-37.9.247.0/24"
+set subnet 37.9.247.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.85.0/24"
+set subnet 217.118.85.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.82.0/24"
+set subnet 217.118.82.0/24
+next
+edit "GPRS-IP-beeline-RUS-89.113.136.0/21"
+set subnet 89.113.136.0/21
+next
+edit "GPRS-IP-beeline-RUS-89.113.101.0/24"
+set subnet 89.113.101.0/24
+next
+edit "GPRS-IP-beeline-RUS-81.222.186.0/23"
+set subnet 81.222.186.0/23
+next
+edit "GPRS-IP-beeline-RUS-81.9.116.0/22"
+set subnet 81.9.116.0/22
+next
+edit "GPRS-IP-beeline-RUS-83.220.224.0/24"
+set subnet 83.220.224.0/24
+next
+edit "GPRS-IP-beeline-RUS-213.234.251.0/24"
+set subnet 213.234.251.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.66.0/24"
+set subnet 217.118.66.0/24
+next
+edit "GPRS-IP-beeline-RUS-83.220.227.0/24"
+set subnet 83.220.227.0/24
+next
+edit "GPRS-IP-beeline-RUS-89.113.4.0/22"
+set subnet 89.113.4.0/22
+next
+edit "GPRS-IP-beeline-RUS-85.115.252.0/22"
+set subnet 85.115.252.0/22
+next
+edit "GPRS-IP-beeline-RUS-81.222.188.0/22"
+set subnet 81.222.188.0/22
+next
+edit "GPRS-IP-beeline-RUS-81.222.218.0/23"
+set subnet 81.222.218.0/23
+next
+edit "GPRS-IP-beeline-RUS-217.118.88.0/24"
+set subnet 217.118.88.0/24
+next
+edit "GPRS-IP-beeline-RUS-85.115.248.0/24"
+set subnet 85.115.248.0/24
+next
+edit "GPRS-IP-beeline-RUS-89.113.127.0/24"
+set subnet 89.113.127.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.89.0/24"
+set subnet 217.118.89.0/24
+next
+edit "GPRS-IP-beeline-RUS-89.113.0.0/22"
+set subnet 89.113.0.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.72.0/22"
+set subnet 217.118.72.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.92.0/24"
+set subnet 217.118.92.0/24
+next
+edit "GPRS-IP-beeline-RUS-77.41.190.0/24"
+set subnet 77.41.190.0/24
+next
+edit "GPRS-IP-beeline-RUS-89.113.152.0/21"
+set subnet 89.113.152.0/21
+next
+edit "GPRS-IP-beeline-RUS-37.9.244.0/24"
+set subnet 37.9.244.0/24
+next
+edit "GPRS-IP-beeline-RUS-85.249.24.0/21"
+set subnet 85.249.24.0/21
+next
+edit "GPRS-IP-beeline-RUS-46.250.52.0/22"
+set subnet 46.250.52.0/22
+next
+edit "GPRS-IP-beeline-RUS-83.220.232.0/22"
+set subnet 83.220.232.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.93.0/24"
+set subnet 217.118.93.0/24
+next
+edit "GPRS-IP-beeline-RUS-37.9.240.0/22"
+set subnet 37.9.240.0/22
+next
+edit "GPRS-IP-beeline-RUS-89.113.144.0/21"
+set subnet 89.113.144.0/21
+next
+edit "GPRS-IP-beeline-RUS-89.113.102.0/24"
+set subnet 89.113.102.0/24
+next
+edit "GPRS-IP-beeline-RUS-81.222.184.0/23"
+set subnet 81.222.184.0/23
+next
+edit "GPRS-IP-beeline-RUS-83.220.236.0/22"
+set subnet 83.220.236.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.84.0/24"
+set subnet 217.118.84.0/24
+next
+edit "GPRS-IP-beeline-RUS-37.9.245.0/24"
+set subnet 37.9.245.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.90.0/24"
+set subnet 217.118.90.0/24
+next
+edit "GPRS-IP-beeline-RUS-81.9.126.0/23"
+set subnet 81.9.126.0/23
+next
+edit "GPRS-IP-beeline-RUS-85.115.246.0/24"
+set subnet 85.115.246.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.91.0/24"
+set subnet 217.118.91.0/24
+next
+edit "GPRS-IP-beeline-RUS-31.13.148.0/22"
+set subnet 31.13.148.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.76.0/24"
+set subnet 217.118.76.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.79.0/24"
+set subnet 217.118.79.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.90.192/26"
+set subnet 217.118.90.192/26
+next
+edit "GPRS-IP-beeline-RUS-81.9.113.0/24"
+set subnet 81.9.113.0/24
+next
+edit "GPRS-IP-beeline-RUS-89.113.98.0/24"
+set subnet 89.113.98.0/24
+next
+edit "GPRS-IP-beeline-RUS-31.13.144.0/24"
+set subnet 31.13.144.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.68.0/22"
+set subnet 217.118.68.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.83.0/24"
+set subnet 217.118.83.0/24
+next
+edit "GPRS-IP-beeline-RUS-83.220.240.0/20"
+set subnet 83.220.240.0/20
+next
+edit "GPRS-IP-beeline-RUS-217.118.91.32/28"
+set subnet 217.118.91.32/28
+next
+edit "GPRS-IP-beeline-RUS-89.113.30.0/23"
+set subnet 89.113.30.0/23
+next
+edit "GPRS-IP-beeline-RUS-91.193.176.0/22"
+set subnet 91.193.176.0/22
+next
+edit "GPRS-IP-beeline-RUS-217.118.77.0/24"
+set subnet 217.118.77.0/24
+next
+edit "GPRS-IP-beeline-RUS-31.13.146.0/23"
+set subnet 31.13.146.0/23
+next
+edit "GPRS-IP-beeline-RUS-188.66.32.0/22"
+set subnet 188.66.32.0/22
+next
+edit "GPRS-IP-beeline-RUS-81.222.184.0/22"
+set subnet 81.222.184.0/22
+next
+edit "GPRS-IP-beeline-RUS-85.115.249.0/24"
+set subnet 85.115.249.0/24
+next
+edit "GPRS-IP-beeline-RUS-217.118.87.0/24"
+set subnet 217.118.87.0/24
+next
+end

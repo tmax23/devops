@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:CustomerManagement="http://www.mts.ru/schema/api/CustomerManagement" xmlns:pag="http://mts.ru/siebel/pagination" xmlns:sec="http://schemas.xmlsoap.org/ws/2002/07/secext" xmlns:sieb="http://mts.ru/siebel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soapenv:Header>
+      <msisdn>79132479029</msisdn>
+   </soapenv:Header>
+   <soapenv:Body>
+      <sieb:GetAccounts>
+         <request>
+            <channel id="NCIH" />
+            <items>
+               <item id="1" xsi:type="CustomerManagement:AccountRequestItem">
+                  <accounts>
+                     <account>
+                        <balances>
+                           <balance>
+                              <remainedAmount unitOfMeasure="RUB" />
+                           </balance>
+                        </balances>
+                     </account>
+                  </accounts>
+               </item>
+            </items>
+         </request>
+      </sieb:GetAccounts>
+   </soapenv:Body>
+</soapenv:Envelope>

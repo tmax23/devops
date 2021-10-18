@@ -1,0 +1,65 @@
+config firewall address
+edit "GPRS-IP-mts-RUS-213.87.122.0/23"
+set subnet 213.87.122.0/23
+next
+edit "GPRS-IP-mts-RUS-213.87.118.0/23"
+set subnet 213.87.118.0/23
+next
+edit "GPRS-IP-mts-RUS-213.87.120.0/23"
+set subnet 213.87.120.0/23
+next
+edit "GPRS-IP-mts-RUS-85.140.96.0/20"
+set subnet 85.140.96.0/20
+next
+edit "GPRS-IP-mts-RUS-217.8.226.0/23"
+set subnet 217.8.226.0/23
+next
+edit "GPRS-IP-mts-RUS-213.87.116.0/23"
+set subnet 213.87.116.0/23
+next
+edit "GPRS-IP-mts-RUS-217.8.224.0/20"
+set subnet 217.8.224.0/20
+next
+edit "GPRS-IP-mts-RUS-213.87.114.0/23"
+set subnet 213.87.114.0/23
+next
+edit "GPRS-IP-mts-RUS-85.140.104.0/21"
+set subnet 85.140.104.0/21
+next
+edit "GPRS-IP-mts-RUS-213.87.124.0/23"
+set subnet 213.87.124.0/23
+next
+edit "GPRS-IP-mts-RUS-212.109.200.0/21"
+set subnet 212.109.200.0/21
+next
+edit "GPRS-IP-mts-RUS-81.195.238.0/24"
+set subnet 81.195.238.0/24
+next
+edit "GPRS-IP-mts-RUS-213.87.184.0/23"
+set subnet 213.87.184.0/23
+next
+edit "GPRS-IP-mts-RUS-217.8.234.0/24"
+set subnet 217.8.234.0/24
+next
+edit "GPRS-IP-mts-RUS-213.87.224.0/23"
+set subnet 213.87.224.0/23
+next
+edit "GPRS-IP-mts-RUS-213.87.112.0/23"
+set subnet 213.87.112.0/23
+next
+edit "GPRS-IP-mts-RUS-217.8.239.0/24"
+set subnet 217.8.239.0/24
+next
+edit "GPRS-IP-mts-RUS-213.87.126.0/23"
+set subnet 213.87.126.0/23
+next
+edit "GPRS-IP-mts-RUS-62.105.60.0/23"
+set subnet 62.105.60.0/23
+next
+edit "GPRS-IP-mts-RUS-85.140.96.0/21"
+set subnet 85.140.96.0/21
+next
+edit "GPRS-IP-mts-RUS-217.8.232.0/23"
+set subnet 217.8.232.0/23
+next
+end
