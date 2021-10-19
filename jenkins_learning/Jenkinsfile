@@ -1,3 +1,4 @@
+def gv
 
 pipeline {
     agent any
@@ -15,10 +16,23 @@ pipeline {
       SERVER_CREDENTIALS = credentials('test-user-id')
     }
     stages {
+      stage('init'){
+        steps {
+          script{
+             gv = load "script.groovy"
+          }
+
+        }
+
+      }
+
       stage('build') {
         steps {
-            echo "Building the application..."
-            echo "Building version ${NEW_VERSION}"
+            script {
+              gv.buildApp()
+              gv.testApp()
+            }
+
             }
       }
 
@@ -29,20 +43,17 @@ pipeline {
           }
         }
             steps {
-              echo "Testing the application..."
+              script {
+                gv.testApp()
+              }
             }
       }
 
       stage('deploy') {
             steps {
-                    echo "Deploying the application..."
-                    echo "Deploying, print from parameters ${params.VERSION}"
-                    echo "Deploying with ${SERVER_CREDENTIALS}"
-                    withCredentials([usernamePassword(credentialsId: 'test-user-id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                       sh 'echo $PASSWORD'
-                       echo USERNAME
-                       echo "username is $USERNAME"
-                       echo "password is ${PASSWORD}"
+              script {
+                gv.deployApp()
+              }
                     }
             }
       }
