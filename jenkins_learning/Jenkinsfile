@@ -27,6 +27,7 @@ pipeline {
                        sh 'echo $PASSWORD'
                        echo USERNAME
                        echo "username is $USERNAME"
+                       echo "password is ${PASSWORD}"
                     }
             }
       }
