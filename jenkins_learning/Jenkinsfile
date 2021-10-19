@@ -1,0 +1,39 @@
+
+pipeline {
+    agent any
+    environment {
+      NEW_VERSION = "1.1.0"
+      SERVER_CREDENTIALS = credentials('test-user-id')
+    }
+    stages {
+      stage('build') {
+            steps {
+            echo "Building the application..."
+            echo "Building version ${NEW_VERSION}"
+            }
+      }
+
+      stage('test') {
+            steps {
+              echo "Testing the application..."
+            }
+      }
+
+      stage('deploy') {
+            steps {
+                    echo "Deploying the application..."
+                    echo "Deploying with ${SERVER_CREDENTIALS}"
+                    withCredentials([usernamePassword(credentialsId: 'test-user-id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                       sh 'echo $PASSWORD'
+                       echo USERNAME
+                       echo "username is $USERNAME"
+                    }
+            }
+      }
+
+
+
+
+
+    }
+}
