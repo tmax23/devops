@@ -1,19 +1,33 @@
 
 pipeline {
     agent any
+
+    tools {
+       maven 'maven-3.8.3'
+    }
+
+    parameters {
+      choice ( name: 'VERSION', choices: ['1.0.0', '1.0.1', '1.1.0'], description: 'versions of app' )
+      booleanParam ( name: 'executeTests', defaultValue: true, description: 'nota bene' )
+    }
     environment {
       NEW_VERSION = "1.1.0"
       SERVER_CREDENTIALS = credentials('test-user-id')
     }
     stages {
       stage('build') {
-            steps {
+        steps {
             echo "Building the application..."
             echo "Building version ${NEW_VERSION}"
             }
       }
 
       stage('test') {
+        when {
+          expression {
+            params.executeTests == true
+          }
+        }
             steps {
               echo "Testing the application..."
             }
@@ -22,6 +36,7 @@ pipeline {
       stage('deploy') {
             steps {
                     echo "Deploying the application..."
+                    echo "Deploying, print from parameters ${params.VERSION}"
                     echo "Deploying with ${SERVER_CREDENTIALS}"
                     withCredentials([usernamePassword(credentialsId: 'test-user-id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                        sh 'echo $PASSWORD'
