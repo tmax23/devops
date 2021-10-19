@@ -2,19 +2,11 @@ def gv
 
 pipeline {
     agent any
-
-    tools {
-       maven 'maven-3.8.3'
-    }
-
     parameters {
       choice ( name: 'VERSION', choices: ['1.0.0', '1.0.1', '1.1.0'], description: 'versions of app' )
       booleanParam ( name: 'executeTests', defaultValue: true, description: 'nota bene' )
     }
-    environment {
-      NEW_VERSION = "1.1.0"
-      SERVER_CREDENTIALS = credentials('test-user-id')
-    }
+
     stages {
       stage('init'){
         steps {
@@ -30,8 +22,7 @@ pipeline {
         steps {
             script {
               gv.buildApp()
-              gv.testApp()
-            }
+              }
 
             }
       }
@@ -57,10 +48,5 @@ pipeline {
                     }
             }
       }
-
-
-
-}
-}
 
     }
