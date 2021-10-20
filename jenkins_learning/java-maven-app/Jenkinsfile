@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    tools {
+        manen 'maven-3.6.3'
+    }
+
+    stages {
+        stage('Build app') {
+            steps {
+                echo "Building......."
+                sh 'mvn package'
+            }
+        }
+
+        stage('Build docker image') {
+            steps {
+                echo "Building docker image"
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                   sh "docker build -t tmax23/java-maven-app:2.0 ."
+                   sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
+                   sh "docker push tmax23/java-maven-app:2.0"
+                }
+            }
+        }
+    }
+}
