@@ -1,0 +1,62 @@
+def gv
+
+pipeline {
+    agent any
+    parameters {
+      choice ( name: 'VERSION', choices: ['1.0.0', '1.0.1', '1.1.0'], description: 'versions of app' )
+      booleanParam ( name: 'executeTests', defaultValue: true, description: 'nota bene' )
+    }
+
+    stages {
+      stage('init'){
+        steps {
+          script{
+             gv = load "jenkins_learning/script.groovy"
+          }
+
+        }
+
+      }
+
+      stage('build') {
+        steps {
+            script {
+              gv.buildApp()
+              }
+
+            }
+      }
+
+      stage('test') {
+        when {
+          expression {
+            params.executeTests == true
+          }
+        }
+            steps {
+              script {
+                gv.testApp()
+              }
+            }
+      }
+
+      stage('deploy') {
+          input {
+            message "Choice environment"
+            ok "Done"
+            parameters {
+              choice ( name: 'ENV1', choices: ['dev', 'prod', 'staging'], description: '' )
+              choice ( name: 'ENV2', choices: ['dev', 'prod', 'staging'], description: '' )
+             }
+          }
+            steps {
+              script {
+                gv.deployApp()
+                echo "Deploing to ${ENV1}"
+                echo "Deploing to ${ENV2}"
+              }
+                    }
+            }
+      }
+
+    }

@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     tools {
@@ -5,14 +6,33 @@ pipeline {
     }
 
     stages {
+
+        stage('Testing app') {
+            steps {
+                echo "Testing app"
+                echo "Current branch is $BRANCH_NAME"
+            }
+        }
+
         stage('Build app') {
+          when {
+            expression {
+              BRANCH_NAME = 'jenkins-jobs'
+            }
+          }
             steps {
                 echo "Building......."
+                echo "Current branch is $BRANCH_NAME"
                 sh 'mvn package'
             }
         }
 
         stage('Build docker image') {
+           when {
+              expression {
+              BRANCH_NAME = 'jenkins-jobs'
+              }
+           }
             steps {
                 echo "Building docker image"
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
