@@ -10,7 +10,7 @@ pipeline {
 
     stages {
 
-      stage('build jar') {
+      stage('build app') {
         steps {
             script {
               buildJar()
@@ -22,7 +22,7 @@ pipeline {
       stage('build image') {
         steps {
             script {
-              buildImage()
+              buildImage 'tmax23/java-maven-app:2.0'
               }
 
             }
