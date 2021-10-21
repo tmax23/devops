@@ -1,39 +1,33 @@
+#!/usr/bin/env groovy
+
+@Library('jenkins-shared-library')
+
 pipeline {
     agent any
+    tools {
+        maven 'maven-3.6.3'
+    }
 
     stages {
 
-        stage('Test app') {
-            steps {
-                echo "Testing app"
-                echo "Current branch is $BRANCH_NAME"
-            }
-        }
-
-        stage('Build app') {
-            when {
-               expression {
-               BRANCH_NAME == 'jenkins-jobs'
-                }
-            }
-
-            steps {
-              echo "Building app"
-            }
-
-        }
-
-        stage('Deploy app') {
-
-          when {
-             expression {
-             BRANCH_NAME == 'jenkins-jobs'
-             }
-          }
-            steps {
-              echo "Deploying app"
+      stage('build jar') {
+        steps {
+            script {
+              buildJar()
               }
 
-        }
+            }
+      }
+
+      stage('build image') {
+        steps {
+            script {
+              buildImage()
+              }
+
+            }
+      }
+
     }
+
 }
