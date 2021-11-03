@@ -3,3 +3,7 @@ keys_for_ssh/
 .idea/
 devops.iml
 **/.terraform/
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
