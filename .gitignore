@@ -5,5 +5,7 @@ devops.iml
 **/.terraform/
 
 # .tfstate files
-*.tfstate
-*.tfstate.*
+#*.tfstate
+#*.tfstate.*
+
+**/crash.log

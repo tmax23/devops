@@ -8,3 +8,4 @@ my_whitelist      = ["95.167.217.2/32", "37.23.63.0/24"]
 public_key_name   = "server-1" # ssh key on aws
 # public_key_location = "/home/maxim/.ssh/id_rsa.pub"
 private_key_location = "/home/maxim/devops/keys_for_ssh/server-1.pem"
+image_name           = "amzn2-ami-hvm-*-x86_64-gp2"
