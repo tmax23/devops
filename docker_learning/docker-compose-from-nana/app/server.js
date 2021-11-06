@@ -1,24 +1,26 @@
-let express = require('express');
-let path = require('path');
-let fs = require('fs');
-let MongoClient = require('mongodb').MongoClient;
-let bodyParser = require('body-parser');
-let app = express();
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
+const { MongoClient } = require('mongodb');
+const bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
+const app = express();
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, "index.html"));
+app
+  .use(bodyParser.urlencoded({
+    extended: true
+  }))
+  .use(bodyParser.json());
+
+app
+  .get('/', (req, res) => {
+      res.sendFile(path.join(__dirname, "index.html"));
+    })
+  .get('/profile-picture', (req, res) => {
+    let img = fs.readFileSync(path.join(__dirname, "images/profile-1.jpg"));
+    res.writeHead(200, {'Content-Type': 'image/jpg' });
+    res.end(img, 'binary');
   });
-
-app.get('/profile-picture', function (req, res) {
-  let img = fs.readFileSync(path.join(__dirname, "images/profile-1.jpg"));
-  res.writeHead(200, {'Content-Type': 'image/jpg' });
-  res.end(img, 'binary');
-});
 
 // use when starting application locally with node command
 let mongoUrlLocal = "mongodb://admin:password@localhost:27017";
@@ -35,49 +37,50 @@ let mongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 // "user-account" in demo with docker. "my-db" in demo with docker-compose
 let databaseName = "my-db";
 
-app.post('/update-profile', function (req, res) {
-  let userObj = req.body;
+app.post('/update-profile', (req, res) => {
+  const userObj = req.body;
 
-  MongoClient.connect(mongoUrlDockerCompose, mongoClientOptions, function (err, client) {
+  MongoClient.connect(mongoUrlLocal, mongoClientOptions, (err, client) => {
     if (err) throw err;
 
-    let db = client.db(databaseName);
-    userObj['userid'] = 1;
+    const db = client.db(databaseName);
+    userObj.userid = 1;
 
-    let myquery = { userid: 1 };
-    let newvalues = { $set: userObj };
+    const myquery = { userid: 1 };
+    const newvalues = { $set: userObj };
 
-    db.collection("users").updateOne(myquery, newvalues, {upsert: true}, function(err, res) {
-      if (err) throw err;
-      client.close();
-    });
+    db.collection('users')
+      .updateOne(myquery, newvalues, {upsert: true}, (err, res) => {
+        if (err) throw err;
+        client.close();
+      });
 
   });
   // Send response
   res.send(userObj);
 });
 
-app.get('/get-profile', function (req, res) {
-  let response = {};
+app.get('/get-profile', (req, res) => {
   // Connect to the db
-  MongoClient.connect(mongoUrlDockerCompose, mongoClientOptions, function (err, client) {
+  MongoClient.connect(mongoUrlLocal, mongoClientOptions, (err, client) => {
     if (err) throw err;
 
-    let db = client.db(databaseName);
+    const db = client.db(databaseName);
 
-    let myquery = { userid: 1 };
+    const myquery = { userid: 1 };
 
-    db.collection("users").findOne(myquery, function (err, result) {
-      if (err) throw err;
-      response = result;
-      client.close();
+    db.collection('users')
+      .findOne(myquery, (err, result) => {
+        if (err) throw err;
 
-      // Send response
-      res.send(response ? response : {});
-    });
+        client.close();
+
+        // Send response
+        res.send(result ? result : {});
+      });
   });
 });
 
-app.listen(3000, function () {
+app.listen(3000, () => {
   console.log("app listening on port 3000!");
 });
