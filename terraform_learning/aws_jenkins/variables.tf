@@ -20,8 +20,8 @@ variable "public_key_name" {
   default = "server-1"
 }
 variable "private_key_location" {
-  default = "/home/maxim/devops/keys_for_ssh/server-1.pem" # Home
-  # default = "/home/maxim/devops/keys_for_ssh/aws-server"   # Work
+  # default = "/home/maxim/devops/keys_for_ssh/server-1.pem" # Home
+  default = "/home/maxim/devops/keys_for_ssh/aws-server" # Work
 }
 variable "my_whitelist" {
   default = ["0.0.0.0/0"]
