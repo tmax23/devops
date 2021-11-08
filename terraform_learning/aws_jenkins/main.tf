@@ -2,19 +2,6 @@ provider "aws" {
   region = var.my_region
 }
 
-variable "my_region" {}
-variable "avail_zone" {}
-variable "vpc_cidr_block" {}
-variable "subnet_cidr_block" {}
-variable "env_prefix" {}
-variable "instance_type" {}
-#variable "public_key_location" {}
-variable "public_key_name" {}
-variable "private_key_location" {}
-variable "my_whitelist" {
-  type = list(string)
-}
-
 resource "aws_vpc" "myapp-vpc" {
   cidr_block = var.vpc_cidr_block
   tags = {
@@ -57,13 +44,6 @@ resource "aws_default_security_group" "default-sg" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = var.my_whitelist
-  }
-
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
