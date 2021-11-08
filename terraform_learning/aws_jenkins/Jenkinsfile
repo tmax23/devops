@@ -21,19 +21,23 @@ pipeline {
             steps {
                 script {
                     echo "building the docker image"
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh "docker build -t ${IMAGE_NAME} ."
-                        sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh "docker push ${IMAGE_NAME}"
+										dir (terraform_learning/aws_jenkins) {
+                        withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                            sh "docker build -t ${IMAGE_NAME} ."
+                            sh "echo $PASS | docker login -u $USER --password-stdin"
+                            sh "docker push ${IMAGE_NAME}"
+                        }
                     }
-                }
+								}
             }
         }
 
 				stage('deploy to ec2') {
 				            steps {
 				                script {
-				                   echo 'deploying docker image to EC2'
+
+												dir (terraform_learning/aws_jenkins) {
+													 echo 'deploying docker image to EC2'
 
 				                   def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME}"
 				                   def ec2Instance = "ec2-user@13.58.185.107"
@@ -43,10 +47,10 @@ pipeline {
 				                       sh "scp docker-compose.yaml ${ec2Instance}:/home/ec2-user"
 				                       sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
 				                   }
-				                }
+                          }
+												}
 				            }
 				        }
-
 
 		}
 }
