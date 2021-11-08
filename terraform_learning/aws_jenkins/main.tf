@@ -98,8 +98,8 @@ resource "aws_instance" "myapp-server" {
   key_name                    = var.public_key_name
   # key_name = aws_key_pair.ssh-key.key_name
 
-  # user_data = file("script.sh")
-
+  user_data = file("script.sh")
+  /*
   connection {
     type        = "ssh"
     host        = self.public_ip
@@ -118,7 +118,7 @@ resource "aws_instance" "myapp-server" {
       "/home/ec2-user/script.sh",
     ]
   }
-
+*/
   tags = {
     Name = "${var.env_prefix}-myapp-server"
   }

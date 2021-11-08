@@ -43,8 +43,7 @@ pipeline {
       environment {
         AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
-        // TF_VAR_private_key_location = "/home/maxim/devops/keys_for_ssh/server-1.pem" //For Home
-        TF_VAR_env_prefix = 'prod'
+        // TF_VAR_env_prefix = 'prod'
       }
 
       steps {
