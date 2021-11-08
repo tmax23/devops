@@ -13,7 +13,7 @@ pipeline {
 
       steps {
         script {
-          dir ('terraform_learning/aws_jenkins') {
+          dir ('/var/lib/jenkins/workspace/aws_create-instance_and_deploy-app/terraform_learning/aws_jenkins') {
             sh "terraform destroy -auto-approve"
           }
         }
