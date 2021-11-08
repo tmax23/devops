@@ -119,9 +119,10 @@ resource "aws_instance" "myapp-server" {
   # key_name = aws_key_pair.ssh-key.key_name
 
   # user_data = file("script.sh")
-  /*  connection {
+
+  connection {
     type        = "ssh"
-    host        = "self.public_ip"
+    host        = self.public_ip
     user        = "ec2-user"
     private_key = file(var.private_key_location)
   }
@@ -135,10 +136,6 @@ resource "aws_instance" "myapp-server" {
     script = file("script.sh")
   }
 
-  provisioner "local-exec" {
-    command = "echo ${self.public_ip}"
-  }
-*/
   tags = {
     Name = "${var.env_prefix}-myapp-server"
   }

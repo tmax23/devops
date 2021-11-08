@@ -66,6 +66,13 @@ resource "aws_default_security_group" "default-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port       = 0
     to_port         = 0
@@ -112,9 +119,10 @@ resource "aws_instance" "myapp-server" {
   # key_name = aws_key_pair.ssh-key.key_name
 
   # user_data = file("script.sh")
+
   connection {
     type        = "ssh"
-    host        = "self.public_ip"
+    host        = self.public_ip
     user        = "ec2-user"
     private_key = file(var.private_key_location)
   }
@@ -125,11 +133,10 @@ resource "aws_instance" "myapp-server" {
   }
 
   provisioner "remote-exec" {
-    script = file("script.sh")
-  }
-
-  provisioner "local-exec" {
-    command = "echo ${self.public_ip}"
+    inline = [
+      "chmod +x /home/ec2-user/script.sh",
+      "/home/ec2-user/script.sh",
+    ]
   }
 
   tags = {
