@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     echo "building the docker image"
-										dir (terraform_learning/aws_jenkins) {
+										dir ('terraform_learning/aws_jenkins') {
                         withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                             sh "docker build -t ${IMAGE_NAME} ."
                             sh "echo $PASS | docker login -u $USER --password-stdin"
@@ -36,7 +36,7 @@ pipeline {
 				            steps {
 				                script {
 
-												dir (terraform_learning/aws_jenkins) {
+												dir ('terraform_learning/aws_jenkins') {
 													 echo 'deploying docker image to EC2'
 
 				                   def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME}"
