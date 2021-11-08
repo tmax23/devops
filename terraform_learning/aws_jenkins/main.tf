@@ -66,13 +66,6 @@ resource "aws_default_security_group" "default-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   egress {
     from_port       = 0
     to_port         = 0
@@ -119,7 +112,7 @@ resource "aws_instance" "myapp-server" {
   # key_name = aws_key_pair.ssh-key.key_name
 
   # user_data = file("script.sh")
-  /*  connection {
+  connection {
     type        = "ssh"
     host        = "self.public_ip"
     user        = "ec2-user"
@@ -138,7 +131,7 @@ resource "aws_instance" "myapp-server" {
   provisioner "local-exec" {
     command = "echo ${self.public_ip}"
   }
-*/
+
   tags = {
     Name = "${var.env_prefix}-myapp-server"
   }
