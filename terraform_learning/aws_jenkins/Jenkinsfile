@@ -1,5 +1,4 @@
 #!/usr/bin/env groovy
-@NonCPS
 
 pipeline {
   agent any
@@ -72,6 +71,7 @@ pipeline {
 					dir ('terraform_learning/aws_jenkins') {
             echo "Waiting for EC2 server to initialize"
 
+            @NonCPS
             def hasMatch = (EC2_STATUS =~ /(.*)Resources: 0 added, 0 changed, 0 destroyed(.*)/)
 
             echo ("hasMatch = " + hasMatch)
