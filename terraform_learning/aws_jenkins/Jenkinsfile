@@ -73,7 +73,7 @@ pipeline {
 
             def hasMatch = (EC2_STATUS ==~ /(.*)Apply complete! Resources: 0 added, 0 changed, 0 destroyed(.*)/)
 
-            echo ("hasMatch = " + hasSummaryMatch)
+            echo ("hasMatch = " + hasMatch)
 
             if (!hasMatch) {
               sleep(time: 90, unit: "SECONDS")
