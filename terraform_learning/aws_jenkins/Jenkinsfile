@@ -69,15 +69,12 @@ pipeline {
 			steps {
 				script {
 					dir ('terraform_learning/aws_jenkins') {
-            echo "Waiting for EC2 server to initialize"
-
             def hasMatch = (EC2_STATUS =~ /(.*)Resources: 0 added, 0 changed, 0 destroyed(.*)/)
-
             if (!hasMatch) {
               hasMatch = null
+              echo "Waiting for EC2 server to initialize"
               sleep(time: 90, unit: "SECONDS")
               }
-
             hasMatch = null
 
             def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME}"
