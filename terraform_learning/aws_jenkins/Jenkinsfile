@@ -71,7 +71,7 @@ pipeline {
 					dir ('terraform_learning/aws_jenkins') {
             echo "Waiting for EC2 server to initialize"
 
-            def hasMatch = (EC2_STATUS ==~ /(.*)Apply complete! Resources: 0 added, 0 changed, 0 destroyed(.*)/)
+            def hasMatch = (EC2_STATUS =~ /(.*)Resources: 0 added, 0 changed, 0 destroyed(.*)/)
 
             echo ("hasMatch = " + hasMatch)
 
