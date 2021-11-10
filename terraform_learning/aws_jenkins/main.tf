@@ -56,8 +56,8 @@ resource "aws_default_security_group" "default-sg" {
   }
 
   ingress {
-    from_port   = 3000
-    to_port     = 3000
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -95,6 +95,10 @@ data "aws_ami" "latest-amazon-linux-image" {
   public_key = file(var.public_key_location)
 
 }*/
+
+resource "aws_eip" "my-static-ip" {
+  instance = aws_instance.myapp-server.id
+}
 
 resource "aws_instance" "myapp-server" {
   ami           = data.aws_ami.latest-amazon-linux-image.id
