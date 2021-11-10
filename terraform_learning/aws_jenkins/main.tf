@@ -98,6 +98,7 @@ data "aws_ami" "latest-amazon-linux-image" {
 
 resource "aws_eip" "my-static-ip" {
   instance = aws_instance.myapp-server.id
+  vpc      = true
 }
 
 resource "aws_instance" "myapp-server" {
@@ -137,6 +138,8 @@ resource "aws_instance" "myapp-server" {
   }
 }
 
+data "aws_eip" "eip_public_ip" {}
+
 output "ec2_public_ip" {
-  value = aws_instance.myapp-server.public_ip
+  value = data.aws_eip.eip_public_ip.public_ip
 }
