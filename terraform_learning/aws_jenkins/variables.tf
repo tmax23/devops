@@ -27,3 +27,7 @@ variable "public_key_name" {
 variable "my_whitelist" {
   default = ["0.0.0.0/0"]
 }
+
+variable "open_ports" {
+  default = ["80", "8080"]
+}
