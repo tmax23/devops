@@ -1,0 +1,20 @@
+#!/usr/bin/env groovy
+
+pipeline {
+  agent any
+
+  stages {
+
+    stage('Deploy app on K8S cluster') {
+      steps {
+        script {
+          dir ('terraform_learning/linode-k8s-test') {
+            withKubeConfig([credentialsId: 'linode-k8s-test', serverUrl: 'https://b2b2ecdb-7ae2-4e81-b382-b8cc23f99f71.eu-central-2.linodelke.net']) {
+              sh 'kubectl apply -f test-k8s.yaml'
+            }
+          }
+        }
+      }
+    }
+	}
+}
