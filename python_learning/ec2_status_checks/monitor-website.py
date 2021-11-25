@@ -38,12 +38,11 @@ try:
         subject = 'Telegram Bot notify'
         email_text = f"Bot is DOWN, status code {respond.status_code}"
         send_email(subject, email_text)
-        print(restart_docker_ssh())
-
+        # print(restart_docker_ssh())
 
 except Exception as ex:
     print(ex)
     subject = 'Telegram Bot notify'
     email_text = f"Exception:\n{ex}"
     send_email(subject, email_text)
-    print(restart_docker_ssh())
+    # print(restart_docker_ssh())
