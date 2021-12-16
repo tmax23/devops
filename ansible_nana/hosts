@@ -1,0 +1,8 @@
+[AWS_REDHAT]
+aws_redhat ansible_host=18.223.155.159
+
+[AWS_UBUNTU]
+aws_ubuntu ansible_host=1.1.1.2
+
+[LINODE]
+linode ansible_host=172.104.230.234

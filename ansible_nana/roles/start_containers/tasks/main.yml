@@ -1,0 +1,15 @@
+---
+- name: Install docker python module
+  ansible.builtin.pip:
+    name:
+      - docker
+      - docker-compose
+
+- name: Copy docker compose
+  ansible.builtin.copy:
+    src: docker-compose.yaml
+    dest: /home/ec2-user/docker-compose.yaml
+
+- name: Start container from compose
+  community.docker.docker_compose:
+    project_src: /home/ec2-user

@@ -1,0 +1,63 @@
+---
+- name: Install nodejs? npm and create user
+  hosts: "{{ HOST }}"
+  become: yes
+  vars_files:
+    - vars-file.yaml
+
+  tasks:
+    - name: Update apt repo and cache
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+    - name: Install nodejs and npm
+      apt:
+        pkg:
+          - nodejs
+          - npm
+          - acl
+
+    - name: Create USER
+      user:
+        name: "{{ user_var }}"
+        comment: "{{ comment_var }}"
+        group: "{{ group_var }}"
+      register: user_create_status
+    - debug: msg={{ user_create_status }}
+
+- name: Deploy nodejs app
+  hosts: "{{ HOST }}"
+  vars_files:
+    - vars-file.yaml
+  become: yes
+  become_user: "{{ user_var }}"
+
+  tasks:
+    - name: Copy nodejs folder to a server
+      copy:
+        src: "{{ src_app_path }}"
+        dest: "{{ dest_app_path }}/app-1.0.0.tgz"
+
+    - name: Unpack the nodejs file
+      unarchive:
+        src: "{{ dest_app_path }}/app-1.0.0.tgz"
+        dest: "{{ dest_app_path }}"
+        remote_src: yes
+      register: unarchive_status
+    - debug: msg={{ unarchive_status }}
+
+    - name: Install dependencies
+      npm:
+        path: "{{ dest_app_path }}/package/"
+
+    - name: Start app
+      command:
+        chdir: "{{ dest_app_path }}/package/app/"
+        cmd: node server.js
+      async: 1000
+      poll: 0
+
+    - name: Ensure app is running
+      shell: ps aux | grep node
+      register: app_status
+
+    - debug: msg={{ app_status.stdout_lines }}

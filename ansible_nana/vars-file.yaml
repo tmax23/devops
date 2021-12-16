@@ -1,0 +1,5 @@
+user_var: maxim
+comment_var: "Maxim Tretyakov"
+group_var: ubuntu
+src_app_path: /home/maxim/simple-nodejs/nodejs-app-1.0.0.tgz
+dest_app_path: "/home/{{ user_var }}"
